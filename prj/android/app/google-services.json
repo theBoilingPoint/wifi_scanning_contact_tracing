@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "37918435659",
+    "firebase_url": "https://prj-wifi-scanning.firebaseio.com",
+    "project_id": "prj-wifi-scanning",
+    "storage_bucket": "prj-wifi-scanning.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37918435659:android:19760b5b62d2d65f6160ce",
+        "android_client_info": {
+          "package_name": "com.k1895714.prj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37918435659-iii90ovo0sg1n8n6psash67vr5jk8d4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcCIC9jy3h--UMVxTYPnEUluw6z01RzQs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37918435659-iii90ovo0sg1n8n6psash67vr5jk8d4p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
