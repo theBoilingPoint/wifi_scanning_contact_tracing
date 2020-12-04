@@ -3,16 +3,29 @@ import 'package:page_transition/page_transition.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/services.dart';
+import 'package:prj/models/customised_user.dart';
 import 'package:prj/screens/wrapper.dart';
+import 'package:prj/services/auth.dart';
 import 'package:wifi/wifi.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: Wrapper()
-  ));
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamProvider<CustomisedUser>.value(
+      value: AuthService().user,
+      builder: (context) {
+        return Wrapper();
+      },
+      // child: MaterialApp(
+      //     home: Wrapper()
+      // ),
+    );
+  }
 }
+
 
 class Activity extends StatefulWidget {
   @override

@@ -1,15 +1,33 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:prj/models/customised_user.dart';
 
-class AuthServer {
+class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  //Create UserInfo obj based on User
+  CustomisedUser _customisedUserFromUser(User user){
+    return user != null ? CustomisedUser(user.uid) : null;
+  }
+
+  //auth change user stream
+  Stream<CustomisedUser> get user {
+    return _auth.authStateChanges()
+        .map(_customisedUserFromUser);
+    // .map((User user) => _customisedUserFromUser(user));
+  }
+
   //sign in anon
   Future signInAnon() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
     try {
       // original class: AuthResult
       UserCredential result = await _auth.signInAnonymously();
       // original class: FirebaseUser
       User user = result.user;
-      return user;
+      return _customisedUserFromUser(user);
     }
     catch(e) {
       print(e.toString());
