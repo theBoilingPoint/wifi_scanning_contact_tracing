@@ -8,21 +8,25 @@ import 'package:prj/screens/wrapper.dart';
 import 'package:prj/services/auth.dart';
 import 'package:wifi/wifi.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<CustomisedUser>.value(
-      value: AuthService().user,
-      builder: (context) {
-        return Wrapper();
-      },
-      // child: MaterialApp(
-      //     home: Wrapper()
-      // ),
-    );
+    return FutureBuilder(
+      future: Firebase.initializeApp(),
+        builder: (context, snapshot) {
+          //CustomisedUser is the User class in the tutorial
+          return StreamProvider<CustomisedUser>.value(
+            value: AuthService().user,
+            child: MaterialApp(
+              home: Wrapper()
+            ),
+          );
+        }
+        );
   }
 }
 

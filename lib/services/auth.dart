@@ -12,6 +12,7 @@ class AuthService {
   }
 
   //auth change user stream
+  //In the youtube tutorial it's Stream<User>
   Stream<CustomisedUser> get user {
     return _auth.authStateChanges()
         .map(_customisedUserFromUser);
