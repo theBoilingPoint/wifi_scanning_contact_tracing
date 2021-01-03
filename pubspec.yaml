@@ -26,8 +26,12 @@ dependencies:
   connectivity: ^2.0.2
   hexcolor: ^1.0.6
   usage: ^3.4.2
-  wifi: ^0.1.5
   page_transition: ^1.1.7+2
+
+  #WiFi Essentials
+  wifi: ^0.1.5
+  signal_strength_indicator: ^0.3.1
+  wifi_iot: ^0.2.0
   # firebase essentials
   firebase_auth: ^0.18.3+1
   cloud_firestore: ^0.14.3+1

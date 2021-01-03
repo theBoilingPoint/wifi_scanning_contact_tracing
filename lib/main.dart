@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:flutter/services.dart';
 import 'package:prj/models/customised_user.dart';
 import 'package:prj/screens/wrapper.dart';
 import 'package:prj/services/auth.dart';
-import 'package:wifi/wifi.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
