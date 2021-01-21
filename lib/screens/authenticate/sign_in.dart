@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:prj/services/auth.dart';
+import 'package:wifi_scanning_flutter/services/auth.dart';
 
 
 

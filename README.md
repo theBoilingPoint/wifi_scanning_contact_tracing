@@ -1,4 +1,4 @@
-# prj
+# wifi_scanning_flutter
 
 A new Flutter project.
 

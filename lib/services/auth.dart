@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:prj/models/customised_user.dart';
+import 'package:wifi_scanning_flutter/models/customised_user.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;

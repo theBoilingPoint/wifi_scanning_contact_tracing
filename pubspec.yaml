@@ -1,4 +1,4 @@
-name: prj
+name: wifi_scanning_flutter
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -29,7 +29,8 @@ dependencies:
   page_transition: ^1.1.7+2
 
   #WiFi Essentials
-  wifi: ^0.1.5
+  wifi:
+    path: ./wifi-master
   signal_strength_indicator: ^0.3.1
   wifi_iot: ^0.2.0
   # firebase essentials
@@ -38,6 +39,8 @@ dependencies:
   firebase_core: ^0.5.3
   # user data stream essential
   provider: ^4.3.2+2
+  # google map essentials
+  google_maps_flutter: ^1.1.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

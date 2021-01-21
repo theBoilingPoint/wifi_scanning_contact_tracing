@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prj/screens/authenticate/sign_in.dart';
+import 'package:wifi_scanning_flutter/screens/authenticate/sign_in.dart';
 
 class Authenticate extends StatefulWidget {
   @override
