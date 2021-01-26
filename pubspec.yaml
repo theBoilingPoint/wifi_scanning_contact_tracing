@@ -37,6 +37,8 @@ dependencies:
   firebase_auth: ^0.18.3+1
   cloud_firestore: ^0.14.3+1
   firebase_core: ^0.5.3
+  # SQLite essentials
+  sqflite: ^1.3.2+2
   # user data stream essential
   provider: ^4.3.2+2
   # google map essentials
