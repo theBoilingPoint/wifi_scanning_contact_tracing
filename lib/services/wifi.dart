@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wifi/wifi.dart';
-import 'package:wifi_scanning_flutter/user_data.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -11,7 +10,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int level = 0;
   List<WifiResult> ssidList = [];
   String ssid = '', password = '';
-  UserData _userData = UserData();
 
   @override
   void initState() {
