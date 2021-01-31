@@ -25,7 +25,8 @@ apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    //compileSdkVersion 29
 
     lintOptions {
         disable 'InvalidPackage'
@@ -35,7 +36,8 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.k1895714.prj"
         minSdkVersion 27
-        targetSdkVersion 29
+        //targetSdkVersion 29
+        targetSdkVersion rootProject.ext.targetSdkVersion
         multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -50,7 +52,10 @@ android {
     }
 
     dependencies {
+        testImplementation 'junit:junit:4.12'
         implementation "androidx.multidex:multidex:2.0.1"
+        androidTestImplementation 'androidx.test:runner:1.1.1'                   // or higher
+        androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'   // or higher
     }
 }
 
