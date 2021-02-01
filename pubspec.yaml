@@ -42,6 +42,7 @@ dependencies:
   path_provider: ^1.6.27
   # Background Activities Essentials
   background_fetch: ^0.6.0
+  shared_preferences: ^0.5.12+4
   # user data stream essential
   provider: ^4.3.2+2
   # google map essentials

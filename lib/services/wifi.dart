@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:wifi/wifi.dart';
+
+import 'background.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -21,7 +24,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final Color kingsBlue = HexColor('#0a2d50');
+    final Color kingsPearlGrey = HexColor("cdd7dc");
+
     return Scaffold(
+      appBar: AppBar(
+        title: Text("WiFi List"),
+        centerTitle: true,
+        backgroundColor: kingsBlue,
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.leak_add,
+                color: kingsPearlGrey,
+              ),
+              onPressed: () {
+                main();
+                // Navigator.push(
+                //     context,
+                //     new MaterialPageRoute(
+                //         builder: (context) => BackgroundTask()));
+              })
+        ],
+      ),
       body: SafeArea(
         child: ListView.builder(
           padding: EdgeInsets.all(8.0),
@@ -29,8 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
           itemBuilder: (BuildContext context, int index) {
             // return itemList(index);
             return ListTile(
-              title: Text("SSID: ${ssidList[index].ssid}  RSSI: ${ssidList[index].level}")
-            );
+                title: Text(
+                    "SSID: ${ssidList[index].ssid}  RSSI: ${ssidList[index].level}"));
           },
         ),
       ),
@@ -38,7 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.settings_input_antenna),
         onPressed: () async {
           loadData();
-          ssidList.forEach((element) => print("SSID: " + element.ssid + " RSSI: " + element.level.toString()));
+          ssidList.forEach((element) => print(
+              "SSID: " + element.ssid + " RSSI: " + element.level.toString()));
         },
       ),
     );
