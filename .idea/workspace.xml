@@ -5,13 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1ec2772-99e2-4d98-83b1-c352a2e1e0a9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/data/app_database.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/data/user_dao.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/wifi_dao.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/models/customised_wifi.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/user_dao.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/models/customised_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/customised_user.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/user/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/user/user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/auth.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/auth.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/background.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/background.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/services/wifi.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/wifi.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/user_data.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
@@ -73,6 +74,11 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Paulina Tao\Desktop\6CCS3PRJ\Submission\wifi_scanning_flutter\lib\user_bloc" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
@@ -106,6 +112,11 @@
       <workItem from="1611623383499" duration="7599000" />
       <workItem from="1611700833641" duration="118000" />
       <workItem from="1611703780831" duration="5297000" />
+      <workItem from="1612216735261" duration="2711000" />
+      <workItem from="1612219905943" duration="7182000" />
+      <workItem from="1612227290830" duration="235000" />
+      <workItem from="1612227542550" duration="558000" />
+      <workItem from="1612303486132" duration="6006000" />
     </task>
     <servers />
   </component>

@@ -8,7 +8,7 @@ class AuthService {
 
   //Create UserInfo obj based on User
   CustomisedUser _customisedUserFromUser(User user){
-    return user != null ? CustomisedUser(user.uid) : null;
+    return user != null ? CustomisedUser(user.uid, false) : null;
   }
 
   //auth change user stream

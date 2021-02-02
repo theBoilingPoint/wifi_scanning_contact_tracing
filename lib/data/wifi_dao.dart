@@ -1,0 +1,54 @@
+import 'package:sembast/sembast.dart';
+import 'package:wifi_scanning_flutter/data/app_database.dart';
+import 'package:wifi_scanning_flutter/models/customised_wifi.dart';
+
+class WifiDao {
+  static const String WIFI_DATABASE_NAME = "wifi_list";
+
+  final _wifiStore = intMapStoreFactory.store(WIFI_DATABASE_NAME);
+
+  Future<Database> get _db async => await AppDatabase.instance.database;
+
+  Future insert(CustomisedWifi wifi) async {
+    await _wifiStore.add(await _db, wifi.toMap());
+  }
+
+  Future update(CustomisedWifi wifi) async {
+    final finder = Finder(filter: Filter.byKey(wifi.ssid));
+    await _wifiStore.update(
+        await _db,
+        wifi.toMap(),
+        finder: finder
+    );
+
+    Future deleteByDatetime(CustomisedWifi wifi) async {
+      final finder = Finder(filter: Filter.byKey(wifi.dateTime));
+      await _wifiStore.delete(
+          await _db,
+          finder: finder
+      );
+    }
+  }
+
+  //Delete everything in the database
+  Future deleteAll() async {
+    await _wifiStore.delete(await _db);
+  }
+
+  Future<List<CustomisedWifi>> getAllSortedByTime() async {
+    final finder = Finder(sortOrders: [
+      SortOrder('dateTime')
+    ]);
+    final recordSnapShots = await _wifiStore.find(
+      await _db,
+      finder : finder,
+    );
+
+    return recordSnapShots.map((snapshot) {
+      final user = CustomisedWifi.fromMap(snapshot.value);
+      //user.userId = snapshot.key;
+      print(snapshot.key);
+      return user;
+    }).toList();
+  }
+}

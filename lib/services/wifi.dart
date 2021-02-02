@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:wifi/wifi.dart';
+import 'package:wifi_scanning_flutter/data/wifi_dao.dart';
+import 'package:wifi_scanning_flutter/models/customised_wifi.dart';
 
 import 'background.dart';
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key wifiList}): super(key: wifiList);
+
   @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
@@ -13,13 +17,11 @@ class _MyHomePageState extends State<MyHomePage> {
   int level = 0;
   List<WifiResult> ssidList = [];
   String ssid = '', password = '';
+  WifiDao wifiDao = WifiDao();
 
   @override
   void initState() {
     super.initState();
-    // _userData.initialiseDatabse().then((value) {
-    //   print("Database is initialised");
-    // });
   }
 
   @override
@@ -39,11 +41,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: kingsPearlGrey,
               ),
               onPressed: () {
-                main();
-                // Navigator.push(
-                //     context,
-                //     new MaterialPageRoute(
-                //         builder: (context) => BackgroundTask()));
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => main()));
               })
         ],
       ),
@@ -63,8 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.settings_input_antenna),
         onPressed: () async {
           loadData();
-          ssidList.forEach((element) => print(
-              "SSID: " + element.ssid + " RSSI: " + element.level.toString()));
+          //storeWiFiListInLocalDatabase();
+          //printWiFiListInLocalDatabase();
+          //printWiFiList();
         },
       ),
     );
@@ -76,5 +78,26 @@ class _MyHomePageState extends State<MyHomePage> {
         ssidList = list;
       });
     });
+  }
+
+  void storeWiFiListInLocalDatabase(){
+    for(var i = 0; i < ssidList.length; i++){
+      CustomisedWifi curWifi = new CustomisedWifi(DateTime.now().toString(), ssidList[i].ssid, ssidList[i].level);
+      wifiDao.insert(curWifi);
+    }
+  }
+
+  void printWiFiListInLocalDatabase() async {
+    List wifiListInDatabase = await wifiDao.getAllSortedByTime();
+    wifiListInDatabase.forEach((element) => print("Time: ${element.dateTime} SSID: ${element.ssid} RSSI: ${element.rssi}"));
+  }
+
+  void clearLocalDataBase(){
+    wifiDao.deleteAll();
+  }
+
+  void printWiFiList() {
+    ssidList.forEach((element) => print(
+        "SSID: " + element.ssid + " RSSI: " + element.level.toString()));
   }
 }

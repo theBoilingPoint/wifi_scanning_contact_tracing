@@ -1,14 +1,15 @@
 class CustomisedUser {
-  final String uid;
-  bool state = false;
-  DateTime dateTime;
-  String ssid;
-  String rssi;
+  String uid;
+  bool state;
 
-  CustomisedUser(this.uid);
+  CustomisedUser(this.uid, this.state);
 
   String get userId {
     return uid;
+  }
+
+  set userId(String id) {
+    uid = id;
   }
 
   bool get infectionState {
@@ -19,28 +20,16 @@ class CustomisedUser {
     state = currentState;
   }
 
-  set currentDateTime(DateTime now) {
-    dateTime = now;
-  }
-
-  set wifiSSID(String ssid) {
-    this.ssid = ssid;
-  }
-
-  set wifiRSSI(String rssi) {
-    this.rssi = rssi;
-  }
-
   Map<String, dynamic> toMap() => {
     "id": uid,
     "state": state,
-    "dateTime": dateTime,
-    "ssid": ssid,
-    "rssi": rssi,
   };
 
   static CustomisedUser fromMap(Map<String, dynamic> map){
-    return CustomisedUser(map['id']);
+    return CustomisedUser(
+        map['id'],
+        map['state'],
+    );
   }
 
 }

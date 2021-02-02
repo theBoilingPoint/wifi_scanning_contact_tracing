@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:background_fetch/background_fetch.dart';
@@ -21,6 +22,7 @@ void backgroundFetchHeadlessTask(String taskId) async {
   if (json != null) {
     events = jsonDecode(json).cast<String>();
   }
+
   // Add new event.
   events.insert(0, "$taskId@$timestamp [Headless]");
   // Persist fetch events in SharedPreferences
@@ -39,14 +41,17 @@ void backgroundFetchHeadlessTask(String taskId) async {
   }
 }
 
-void main() {
+StatefulWidget main() {
   // Enable integration testing with the Flutter Driver extension.
   // See https://flutter.io/testing/ for more info.
-  runApp(new BackgroundTask());
+  //runApp(new BackgroundTask());
+  var mainWidget = new BackgroundTask();
 
   // Register to receive BackgroundFetch events after app is terminated.
   // Requires {stopOnTerminate: false, enableHeadless: true}
   BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
+
+  return mainWidget;
 }
 
 class BackgroundTask extends StatefulWidget {
@@ -70,6 +75,7 @@ class _MyAppState extends State<BackgroundTask> {
     // Load persisted fetch events from SharedPreferences
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String json = prefs.getString(EVENTS_KEY);
+
     if (json != null) {
       setState(() {
         _events = jsonDecode(json).cast<String>();
@@ -80,7 +86,9 @@ class _MyAppState extends State<BackgroundTask> {
     BackgroundFetch.configure(
             BackgroundFetchConfig(
               minimumFetchInterval: 15,
+              //Bypass JobScheduler to use Android's older AlarmManager API, resulting in more accurate task-execution at the cost of higher battery usage.
               forceAlarmManager: false,
+              //The background activity should still run even when the app is terminated
               stopOnTerminate: false,
               startOnBoot: true,
               enableHeadless: true,
@@ -110,6 +118,7 @@ class _MyAppState extends State<BackgroundTask> {
         taskId: "com.transistorsoft.customtask",
         delay: 10000,
         periodic: false,
+        //Bypass JobScheduler to use Android's older AlarmManager API, resulting in more accurate task-execution at the cost of higher battery usage.
         forceAlarmManager: true,
         stopOnTerminate: false,
         enableHeadless: true));
@@ -188,6 +197,8 @@ class _MyAppState extends State<BackgroundTask> {
 
   @override
   Widget build(BuildContext context) {
+    final Color kingsBlue = HexColor('#0a2d50');
+
     const EMPTY_TEXT = Center(
         child: Text(
             'Waiting for fetch events.  Simulate one.\n [Android] \$ ./scripts/simulate-fetch\n [iOS] XCode->Debug->Simulate Background Fetch'));
@@ -196,8 +207,9 @@ class _MyAppState extends State<BackgroundTask> {
       home: new Scaffold(
         appBar: new AppBar(
             title: const Text('BackgroundFetch Example',
-                style: TextStyle(color: Colors.black)),
-            backgroundColor: Colors.amberAccent,
+                style: TextStyle(color: Colors.white)),
+            centerTitle: true,
+            backgroundColor: kingsBlue,
             brightness: Brightness.light,
             actions: <Widget>[
               Switch(value: _enabled, onChanged: _onClickEnable),
