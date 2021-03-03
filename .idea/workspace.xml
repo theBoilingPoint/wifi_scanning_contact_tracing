@@ -5,16 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1ec2772-99e2-4d98-83b1-c352a2e1e0a9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/data/wifi_dao.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/customised_wifi.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/settings_aar.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/KingsBureauGrot/KingsBureauGrot-FiveOne.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/KingsBureauGrot/KingsBureauGrot-FiveOneItal.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/KingsBureauGrot/KingsBureauGrot-ThrSevnItal.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/KingsBureauGrot/KingsBureauGrot-ThreeSeven.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/KingsCaslonDisplay/KingsCaslonDisplay.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/KingsCaslonDisplay/KingsCaslonDisplayItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/KingsCaslonText/KingsCaslon.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/KingsCaslonText/KingsCaslonItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/KingsCaslonText/KingsCaslonSemiBold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fonts/KingsCaslonText/KingsCaslonSemiBoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/authenticate/register.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/cloud_database.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/user_dao.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/customised_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/customised_user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/wifi_scanning_flutter/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/wifi_scanning_flutter/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/wifi_scanning_flutter/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/wifi_scanning_flutter/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/wifi_dao.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/wifi_dao.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/customised_wifi.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/customised_wifi.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/authenticate/sign_in.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/authenticate/sign_in.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/wrapper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wrapper.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/services/auth.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/auth.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/background.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/background.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/wifi.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/wifi.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/background.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/wifi.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/demo/wifi.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wifi-master/android/src/main/java/com/ly/wifi/WifiDelegate.java" beforeDir="false" afterPath="$PROJECT_DIR$/wifi-master/android/src/main/java/com/ly/wifi/WifiDelegate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wifi-master/android/src/main/java/com/ly/wifi/WifiPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/wifi-master/android/src/main/java/com/ly/wifi/WifiPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wifi-master/lib/wifi.dart" beforeDir="false" afterPath="$PROJECT_DIR$/wifi-master/lib/wifi.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,14 +68,8 @@
     <option name="version" value="1" />
   </component>
   <component name="ProjectId" id="1n7qafaBo3eQFfoTc43L9IhMVv3" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" />
-    <panes>
-      <pane id="ProjectPane">
-        <option name="show-excluded-files" value="false" />
-      </pane>
-    </panes>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
@@ -62,6 +77,9 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="true" />
@@ -75,7 +93,13 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Paulina Tao\Desktop\6CCS3PRJ\Submission\wifi_scanning_flutter\fonts\KingsBureauGrot" />
+      <recent name="C:\Users\Paulina Tao\Desktop\6CCS3PRJ\Submission\wifi_scanning_flutter\fonts\KingsCaslonDisplay" />
+      <recent name="C:\Users\Paulina Tao\Desktop\6CCS3PRJ\Submission\wifi_scanning_flutter\fonts\KingsCaslon" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Paulina Tao\Desktop\6CCS3PRJ\Submission\wifi_scanning_flutter\lib\screens\demo" />
       <recent name="C:\Users\Paulina Tao\Desktop\6CCS3PRJ\Submission\wifi_scanning_flutter\lib\user_bloc" />
     </key>
   </component>
@@ -93,6 +117,9 @@
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="e1ec2772-99e2-4d98-83b1-c352a2e1e0a9" name="Default Changelist" comment="" />
@@ -116,15 +143,29 @@
       <workItem from="1612219905943" duration="7182000" />
       <workItem from="1612227290830" duration="235000" />
       <workItem from="1612227542550" duration="558000" />
-      <workItem from="1612303486132" duration="6006000" />
+      <workItem from="1612303486132" duration="6203000" />
+      <workItem from="1613008111486" duration="18000" />
+      <workItem from="1613008147732" duration="4096000" />
+      <workItem from="1613088324980" duration="4114000" />
+      <workItem from="1613092507177" duration="4814000" />
+      <workItem from="1614033776002" duration="567000" />
+      <workItem from="1614034361135" duration="827000" />
+      <workItem from="1614035647523" duration="5655000" />
+      <workItem from="1614120977143" duration="622000" />
+      <workItem from="1614206905910" duration="11774000" />
+      <workItem from="1614283725603" duration="3539000" />
+      <workItem from="1614365342541" duration="995000" />
+      <workItem from="1614368728730" duration="16982000" />
+      <workItem from="1614442706394" duration="6396000" />
+      <workItem from="1614470992634" duration="2183000" />
+      <workItem from="1614543646772" duration="10650000" />
+      <workItem from="1614610504401" duration="3329000" />
+      <workItem from="1614631398960" duration="14464000" />
+      <workItem from="1614711374803" duration="27628000" />
+      <workItem from="1614745241873" duration="1016000" />
+      <workItem from="1614780741489" duration="4801000" />
     </task>
     <servers />
-  </component>
-  <component name="ToolWindowManager">
-    <editor active="true" />
-    <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-    </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
@@ -140,5 +181,8 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

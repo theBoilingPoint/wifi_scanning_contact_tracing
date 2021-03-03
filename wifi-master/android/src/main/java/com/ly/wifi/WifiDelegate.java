@@ -91,6 +91,22 @@ WifiDelegate implements PluginRegistry.RequestPermissionsResultListener {
         }
         launchLevel();
     }
+    
+    public void getBSSID(MethodCall methodCall, MethodChannel.Result result) {
+        if (!setPendingMethodCallAndResult(methodCall, result)) {
+            finishWithAlreadyActiveError();
+            return;
+        }
+        launchBSSID();
+    }
+
+    public void getFrequency(MethodCall methodCall, MethodChannel.Result result) {
+        if (!setPendingMethodCallAndResult(methodCall, result)) {
+            finishWithAlreadyActiveError();
+            return;
+        }
+        launchFrequency();
+    }
 
     private void launchSSID() {
         String wifiName = wifiManager != null ? wifiManager.getConnectionInfo().getSSID().replace("\"", "") : "";
@@ -109,6 +125,28 @@ WifiDelegate implements PluginRegistry.RequestPermissionsResultListener {
             clearMethodCallAndResult();
         } else {
             finishWithError("unavailable", "wifi level not available.");
+        }
+    }
+
+    private void launchBSSID() {
+        String bssid = wifiManager != null ? wifiManager.getConnectionInfo().getBSSID() : "";
+        if (bssid != "") {
+            result.success(bssid);
+            clearMethodCallAndResult();
+        }
+        else {
+            finishWithError("unavailable", "wifi mac address unavailable.");
+        }
+    }
+
+    private void launchFrequency() {
+        int frequency = wifiManager != null ? wifiManager.getConnectionInfo().getFrequency() : 0;
+        if (frequency != 0) {
+            result.success(frequency);
+            clearMethodCallAndResult();
+        }
+        else {
+            finishWithError("unavailable", "wifi frequency unavailable.");
         }
     }
 
@@ -171,12 +209,15 @@ WifiDelegate implements PluginRegistry.RequestPermissionsResultListener {
     private void launchWifiList() {
         List<HashMap> list = new ArrayList<>();
         if (wifiManager != null) {
+            wifiManager.startScan();
             List<ScanResult> scanResultList = wifiManager.getScanResults();
             for (ScanResult scanResult : scanResultList) {
                 int level = scanResult.level;
                 HashMap<String, Object> maps = new HashMap<>();
                 maps.put("ssid", scanResult.SSID);
+                maps.put("bssid", scanResult.BSSID);
                 maps.put("level", level);
+                maps.put("frequency", scanResult.frequency);
                 list.add(maps);
             }
         }

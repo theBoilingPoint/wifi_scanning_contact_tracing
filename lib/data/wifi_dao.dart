@@ -46,7 +46,40 @@ class WifiDao {
 
     return recordSnapShots.map((snapshot) {
       final user = CustomisedWifi.fromMap(snapshot.value);
-      //user.userId = snapshot.key;
+      print(snapshot.key);
+      return user;
+    }).toList();
+  }
+
+  Future<List<CustomisedWifi>> getAllSortedBySignalStrength() async {
+    final finder = Finder(sortOrders: [
+      SortOrder('rssi')
+    ]);
+    final recordSnapShots = await _wifiStore.find(
+      await _db,
+      finder : finder,
+    );
+
+    return recordSnapShots.map((snapshot) {
+      final user = CustomisedWifi.fromMap(snapshot.value);
+      print(snapshot.key);
+      return user;
+    }).toList();
+  }
+
+  Future<List<CustomisedWifi>> getScansWithin7Days() async {
+    String lowerBound = DateTime.now().add(Duration(days: -7)).toString();
+    final finder = Finder(
+        filter: Filter.greaterThanOrEquals("dateTime", lowerBound)
+    );
+
+    final recordSnapShots = await _wifiStore.find(
+      await _db,
+      finder : finder,
+    );
+
+    return recordSnapShots.map((snapshot) {
+      final user = CustomisedWifi.fromMap(snapshot.value);
       print(snapshot.key);
       return user;
     }).toList();

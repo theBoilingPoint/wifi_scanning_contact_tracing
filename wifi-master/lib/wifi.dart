@@ -15,6 +15,14 @@ class Wifi {
     return await _channel.invokeMethod('level');
   }
 
+  static Future<int> get bssid async {
+    return await _channel.invokeMethod('bssid');
+  }
+
+  static Future<int> get frequency async {
+    return await _channel.invokeMethod('frequency');
+  }
+
   static Future<String> get ip async {
     return await _channel.invokeMethod('ip');
   }
@@ -26,7 +34,7 @@ class Wifi {
     var results = await _channel.invokeMethod('list', params);
     List<WifiResult> resultList = [];
     for (int i = 0; i < results.length; i++) {
-      resultList.add(WifiResult(results[i]['ssid'], results[i]['level']));
+      resultList.add(WifiResult(results[i]['ssid'], results[i]['bssid'], results[i]['level'], results[i]['frequency']));
     }
     return resultList;
   }
@@ -52,7 +60,10 @@ class Wifi {
 
 class WifiResult {
   String ssid;
+  String bssid;
   int level;
+  int frequency;
 
-  WifiResult(this.ssid, this.level);
+  WifiResult(this.ssid, this.bssid, this.level, this.frequency);
+
 }
