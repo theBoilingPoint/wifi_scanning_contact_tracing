@@ -24,6 +24,9 @@ class _MyHomePageState extends State<MyHomePage> {
   WifiDao wifiDao = WifiDao();
   bool isInfected = false;
 
+  double strongestNPercentInRssi = 0;
+  double similarityThr = 0;
+
   @override
   void initState() {
     super.initState();
@@ -35,24 +38,44 @@ class _MyHomePageState extends State<MyHomePage> {
     final Color kingsBlue = HexColor('#0a2d50');
     final Color kingsPearlGrey = HexColor("cdd7dc");
 
-    return
-      // StreamProvider<QuerySnapshot>.value(
-      // value: DatabaseService().users,
-      // child:
-      Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text("WiFi List"),
           centerTitle: true,
           backgroundColor: kingsBlue,
           actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.leak_add,
-                  color: kingsPearlGrey,
-                ),
-                onPressed: () {
-                  clearLocalDataBase();
-                })
+            PopupMenuButton<String>(
+              onSelected: (val) async {
+                switch (val) {
+                  case TextMenu.scan:
+                    await loadData();
+                    break;
+                  case TextMenu.store:
+                    await storeScansInLocalDatabase();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Scans have been saved locally."),
+                        ));
+                    printWiFiListInLocalDatabase();
+                    break;
+                  case TextMenu.upload:
+                    await uploadScansToCloud(user.uid);
+                    break;
+                  case TextMenu.match:
+                    await createParameterAdjustingDialog(context);
+                    break;
+                  case TextMenu.clear:
+                    clearLocalDataBase();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("All scans stored locally have been deleted."),
+                        ));
+                    break;
+                }
+              },
+              itemBuilder: (context) => TextMenu.items.map((e) => PopupMenuItem(
+                  value: e,
+                  child: Text(e))
+              ).toList(),
+            )
           ],
         ),
         body: Container(
@@ -66,22 +89,10 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.settings_input_antenna),
-          onPressed: () async {
-            await loadData();
-            //storeScansInLocalDatabase();
-            //storeScansWithin7DaysInCloudDatabase(user.uid);
-            //printGroupedCurrentLocalList();
-            printWiFiListInLocalDatabase();
-          },
-        ),
       );
-    //);
   }
 
   Function listCompare = const ListEquality().equals;
-
 
   Future<void> loadData() async {
     Wifi.list('').then((list) {
@@ -91,12 +102,106 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<void> storeScansInLocalDatabase() async {
+    String timeStamp = DateTime.now().toString();
+    for(var i = 0; i < ssidList.length; i++){
+      CustomisedWifi curWifi = new CustomisedWifi(timeStamp, ssidList[i].ssid, ssidList[i].bssid, ssidList[i].level, ssidList[i].frequency);
+      await wifiDao.insert(curWifi);
+    }
+  }
+
+  Future<void> uploadScansToCloud(String userId) async {
+    List<CustomisedWifi> wifiListInDatabase = await wifiDao.getAllSortedBy("dateTime");
+    Map<String, List<CustomisedWifi>> groupedwifiList = groupBy(wifiListInDatabase, (CustomisedWifi eachSignal) => eachSignal.dateTime);
+    Map<String, List<Map>> newGroupedWifiList = Map();
+    groupedwifiList.forEach((key, value) {
+      List<Map> newValue = [];
+      value.forEach((element) {
+        newValue.add(element.toMap());
+      });
+      newGroupedWifiList[key] = newValue;
+    });
+
+    await DatabaseService(uid: userId).updateUserData(newGroupedWifiList);
+  }
+
+  void printWiFiListInLocalDatabase() async {
+    List wifiListInDatabase = await wifiDao.getAllSortedBy("dateTime");
+    wifiListInDatabase.forEach((element) {
+      print("Time: ${element.dateTime} SSID: ${element.ssid} BSSID: ${element.bssid} RSSI: ${element.rssi} Frequency: ${element.frequency}");
+    });
+  }
+
+  void clearLocalDataBase(){
+    wifiDao.deleteAll();
+  }
+
+  createParameterAdjustingDialog(BuildContext context){
+    return showDialog(context: context, builder: (context) {
+      return AlertDialog(
+        title: Text("Please adjust the matching parameters"),
+        content: Column(
+            children: <Widget> [
+              Text("Filter Percentage"),
+            Slider(
+                label: strongestNPercentInRssi.toString(),
+              value: strongestNPercentInRssi,
+              min: 0,
+              max: 1,
+              onChanged: (double val) {
+                print(val.toString());
+                setState(() {
+                  strongestNPercentInRssi = val;
+                });
+            }),
+          Text("Similarity Threshold"),
+          Slider(
+              label: similarityThr.toString(),
+              value: similarityThr,
+              min: 0,
+              max: 1,
+              onChanged: (double val) {
+                print(val.toString());
+                setState(() {
+                  similarityThr = val;
+                });
+              }),
+            ]),
+        actions: [
+          TextButton(
+              onPressed: (){
+                Navigator.of(context).pop();
+                },
+              child: Text("OK"))
+        ],
+      );
+    });
+  }
+}
+
+class TextMenu {
+  static const String scan = "Scan WiFi Signals";
+  static const String store = "Store Current List";
+  static const String upload = "Upload Current List";
+  static const String match = "Find Match in Cloud";
+  static const String clear = "Clear Local Database";
+
+  static const items = <String>[
+    scan,
+    store,
+    match,
+    clear,
+  ];
+}
+
+class WifiMatching {
+  WifiDao wifiDao = WifiDao();
   /*
   * @param timeSpan is the of type Duration
   */
   Future<bool> matchFingerprints(String uid, Duration timeSpan, double filterPercentage, double similarityThreshold) async {
     //Get raw data from cloud and local dbs
-    List<CustomisedWifi> rawLocalWifiList = await wifiDao.getAllSortedByTime();
+    List<CustomisedWifi> rawLocalWifiList = await wifiDao.getAllSortedBy("dateTime");
     List<CustomisedWifi> rawCloudWifiList = await DatabaseService(uid: uid).getAllScansFromCloud();
 
     //Find all data in the cloud and local dbs that match each other's timestamp
@@ -160,50 +265,5 @@ class _MyHomePageState extends State<MyHomePage> {
     temp..sort((e1, e2) => e2.rssi.compareTo(e1.rssi));
     //keep only the strongest n% in the list and return it
     return temp.take((temp.length*filterPercentage).toInt()).toList();
-  }
-
-  Future<void> printGroupedCurrentLocalList() async {
-    List<CustomisedWifi> wifiListInDatabase = await wifiDao.getAllSortedByTime();
-    var groupedwifiList = groupBy(wifiListInDatabase, (CustomisedWifi eachSignal) => eachSignal.dateTime);
-    groupedwifiList.forEach((key, value) => print("Key: $key Value: $value"));
-  }
-
-  void storeScansInLocalDatabase(){
-    String timeStamp = DateTime.now().toString();
-    for(var i = 0; i < ssidList.length; i++){
-      CustomisedWifi curWifi = new CustomisedWifi(timeStamp, ssidList[i].ssid, ssidList[i].bssid, ssidList[i].level, ssidList[i].frequency);
-      wifiDao.insert(curWifi);
-    }
-  }
-
-  Future<void> storeScansWithin7DaysInCloudDatabase(userId) async {
-    List<CustomisedWifi> wifiListInDatabase = await wifiDao.getScansWithin7Days();
-    Map<String, List<CustomisedWifi>> groupedwifiList = groupBy(wifiListInDatabase, (CustomisedWifi eachSignal) => eachSignal.dateTime);
-    Map<String, List<Map>> newGroupedWifiList = Map();
-    groupedwifiList.forEach((key, value) {
-      List<Map> newValue = [];
-      value.forEach((element) {
-        newValue.add({
-          'ssid': element.ssid,
-          'bssid': element.bssid,
-          'rssi': element.rssi,
-          'frequency': element.frequency
-        });
-      });
-      newGroupedWifiList[key] = newValue;
-    });
-
-    await DatabaseService(uid: userId).updateUserData(newGroupedWifiList);
-  }
-
-  void printWiFiListInLocalDatabase() async {
-    List wifiListInDatabase = await wifiDao.getAllSortedByTime();
-    wifiListInDatabase.forEach((element) {
-      print("Time: ${element.dateTime} SSID: ${element.ssid} BSSID: ${element.bssid} RSSI: ${element.rssi} Frequency: ${element.frequency}");
-    });
-  }
-
-  void clearLocalDataBase(){
-    wifiDao.deleteAll();
   }
 }

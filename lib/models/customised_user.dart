@@ -1,8 +1,9 @@
 class CustomisedUser {
   String uid;
-  bool state;
+  bool state = false;
+  bool hasBeenContacted = false;
 
-  CustomisedUser(this.uid, this.state);
+  CustomisedUser(this.uid);
 
   String get userId {
     return uid;
@@ -20,15 +21,23 @@ class CustomisedUser {
     state = currentState;
   }
 
+  bool get isContacted {
+    return hasBeenContacted;
+  }
+
+  set isContacted(bool currentState) {
+    hasBeenContacted = currentState;
+  }
+
   Map<String, dynamic> toMap() => {
     "id": uid,
     "state": state,
+    "contact": hasBeenContacted,
   };
 
   static CustomisedUser fromMap(Map<String, dynamic> map){
     return CustomisedUser(
         map['id'],
-        map['state'],
     );
   }
 

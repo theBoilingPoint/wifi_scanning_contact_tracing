@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:connectivity/connectivity.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter/services.dart';
 import 'package:wifi_scanning_flutter/models/customised_user.dart';
 import 'package:wifi_scanning_flutter/screens/wrapper.dart';
 import 'package:wifi_scanning_flutter/services/auth.dart';
@@ -16,6 +15,9 @@ void main() async => {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
     return FutureBuilder(
         builder: (context, snapshot) {
           //CustomisedUser is the User class in the tutorial

@@ -33,4 +33,8 @@ class DatabaseService {
 
     return cloudList;
   }
+
+  Future<void> deleteAllScansOfCurrentUser() async {
+    await FirebaseFirestore.instance.collection("users").doc(uid).delete();
+  }
 }

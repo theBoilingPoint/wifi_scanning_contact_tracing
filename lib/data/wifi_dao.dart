@@ -20,14 +20,14 @@ class WifiDao {
         wifi.toMap(),
         finder: finder
     );
+  }
 
-    Future deleteByDatetime(CustomisedWifi wifi) async {
-      final finder = Finder(filter: Filter.byKey(wifi.dateTime));
-      await _wifiStore.delete(
-          await _db,
-          finder: finder
-      );
-    }
+  Future deleteByDatetime(CustomisedWifi wifi) async {
+    final finder = Finder(filter: Filter.byKey(wifi.dateTime));
+    await _wifiStore.delete(
+        await _db,
+        finder: finder
+    );
   }
 
   //Delete everything in the database
@@ -35,25 +35,9 @@ class WifiDao {
     await _wifiStore.delete(await _db);
   }
 
-  Future<List<CustomisedWifi>> getAllSortedByTime() async {
+  Future<List<CustomisedWifi>> getAllSortedBy(String field) async {
     final finder = Finder(sortOrders: [
-      SortOrder('dateTime')
-    ]);
-    final recordSnapShots = await _wifiStore.find(
-      await _db,
-      finder : finder,
-    );
-
-    return recordSnapShots.map((snapshot) {
-      final user = CustomisedWifi.fromMap(snapshot.value);
-      print(snapshot.key);
-      return user;
-    }).toList();
-  }
-
-  Future<List<CustomisedWifi>> getAllSortedBySignalStrength() async {
-    final finder = Finder(sortOrders: [
-      SortOrder('rssi')
+      SortOrder(field)
     ]);
     final recordSnapShots = await _wifiStore.find(
       await _db,

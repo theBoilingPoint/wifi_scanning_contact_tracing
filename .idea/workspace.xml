@@ -5,37 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1ec2772-99e2-4d98-83b1-c352a2e1e0a9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/settings_aar.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/KingsBureauGrot/KingsBureauGrot-FiveOne.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/KingsBureauGrot/KingsBureauGrot-FiveOneItal.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/KingsBureauGrot/KingsBureauGrot-ThrSevnItal.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/KingsBureauGrot/KingsBureauGrot-ThreeSeven.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/KingsCaslonDisplay/KingsCaslonDisplay.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/KingsCaslonDisplay/KingsCaslonDisplayItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/KingsCaslonText/KingsCaslon.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/KingsCaslonText/KingsCaslonItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/KingsCaslonText/KingsCaslonSemiBold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/KingsCaslonText/KingsCaslonSemiBoldItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/screens/authenticate/register.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/services/cloud_database.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/result_dao.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/models/customised_result.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/webpage/heatmap_webpage.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/webpage/testbooking_webpage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/wifi_scanning_flutter/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/wifi_scanning_flutter/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/wifi_scanning_flutter/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/wifi_scanning_flutter/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/data/wifi_dao.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/wifi_dao.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/customised_wifi.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/customised_wifi.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/authenticate/sign_in.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/authenticate/sign_in.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/customised_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/customised_user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/demo/wifi.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/demo/wifi.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home/home.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/user/setting.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/user/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/user/user.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/wrapper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wrapper.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/services/auth.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/auth.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/background.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/wifi.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/demo/wifi.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wifi-master/android/src/main/java/com/ly/wifi/WifiDelegate.java" beforeDir="false" afterPath="$PROJECT_DIR$/wifi-master/android/src/main/java/com/ly/wifi/WifiDelegate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wifi-master/android/src/main/java/com/ly/wifi/WifiPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/wifi-master/android/src/main/java/com/ly/wifi/WifiPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wifi-master/lib/wifi.dart" beforeDir="false" afterPath="$PROJECT_DIR$/wifi-master/lib/wifi.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/cloud_database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/cloud_database.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +147,9 @@
       <workItem from="1614631398960" duration="14464000" />
       <workItem from="1614711374803" duration="27628000" />
       <workItem from="1614745241873" duration="1016000" />
-      <workItem from="1614780741489" duration="4801000" />
+      <workItem from="1614780741489" duration="19423000" />
+      <workItem from="1614825219943" duration="3828000" />
+      <workItem from="1614880882890" duration="5149000" />
     </task>
     <servers />
   </component>
