@@ -14,7 +14,6 @@ class _TestBookingWebViewState extends State<TestBookingWebView> {
   final Color kingsPearlGrey = HexColor("cdd7dc");
 
   Completer<WebViewController> _controller = Completer<WebViewController>();
-  static const String HEATMAP_URL = "https://www.covidlive.co.uk/";
 
   @override
   Widget build(BuildContext context){

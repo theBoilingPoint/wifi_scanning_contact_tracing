@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:wifi_scanning_flutter/services/auth.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -12,7 +11,6 @@ class _RegisterState extends State<Register> {
   final Color kingsBlue = HexColor('#0a2d50');
   final Color kingsPowderBlue = HexColor("#8d9ebc");
 
-  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
   String email = "";

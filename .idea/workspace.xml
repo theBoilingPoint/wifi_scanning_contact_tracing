@@ -3,23 +3,28 @@
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="e1ec2772-99e2-4d98-83b1-c352a2e1e0a9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/data/result_dao.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/customised_result.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/screens/webpage/heatmap_webpage.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/screens/webpage/testbooking_webpage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/wifi_dao.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/wifi_dao.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/customised_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/customised_user.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/demo/wifi.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/demo/wifi.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home/home.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/user/setting.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/user/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/user/user.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/wrapper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wrapper.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/auth.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/auth.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/cloud_database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/cloud_database.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +34,6 @@
   <component name="CodeStyleSettingsInfer">
     <option name="done" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="R5CN71G758X" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -77,28 +81,15 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Paulina Tao\Desktop\6CCS3PRJ\Submission\wifi_scanning_flutter\lib\screens\demo" />
+      <recent name="C:\Users\Paulina Tao\Desktop\6CCS3PRJ\Submission\wifi_scanning_flutter\lib\user_bloc" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Paulina Tao\Desktop\6CCS3PRJ\Submission\wifi_scanning_flutter\fonts\KingsBureauGrot" />
       <recent name="C:\Users\Paulina Tao\Desktop\6CCS3PRJ\Submission\wifi_scanning_flutter\fonts\KingsCaslonDisplay" />
       <recent name="C:\Users\Paulina Tao\Desktop\6CCS3PRJ\Submission\wifi_scanning_flutter\fonts\KingsCaslon" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Paulina Tao\Desktop\6CCS3PRJ\Submission\wifi_scanning_flutter\lib\screens\demo" />
-      <recent name="C:\Users\Paulina Tao\Desktop\6CCS3PRJ\Submission\wifi_scanning_flutter\lib\user_bloc" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -150,6 +141,8 @@
       <workItem from="1614780741489" duration="19423000" />
       <workItem from="1614825219943" duration="3828000" />
       <workItem from="1614880882890" duration="5149000" />
+      <workItem from="1614900552076" duration="609000" />
+      <workItem from="1614901964970" duration="291000" />
     </task>
     <servers />
   </component>
@@ -170,5 +163,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="697" y="378" width="588" height="357" key="#Notifications" timestamp="1614902001534">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="697" y="378" width="588" height="357" key="#Notifications/72.27.1848.1053@72.27.1848.1053" timestamp="1614902001534" />
+    <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl" timestamp="1614900606136">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1614900606136" />
   </component>
 </project>
