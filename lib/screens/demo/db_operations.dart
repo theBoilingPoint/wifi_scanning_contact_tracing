@@ -44,19 +44,23 @@ class DatabaseOperations {
     await resultDao.insert(result);
   }
 
-  void printWiFiListInLocalDatabase() async {
-    List wifiListInDatabase = await wifiDao.getAllSortedBy("dateTime");
-    wifiListInDatabase.forEach((element) {
-      print(
-          "Time: ${element.dateTime} SSID: ${element.ssid} BSSID: ${element.bssid} RSSI: ${element.rssi} Frequency: ${element.frequency}");
-    });
+  Future<List<CustomisedWifi>> getLocalDbBy(String field) async {
+    return await wifiDao.getAllSortedBy(field);
   }
 
-  void clearLocalDataBase() {
+  Future<List<CustomisedResult>> getResultDbBy(String field) async {
+    return await resultDao.getAllSortedBy(field);
+  }
+
+  void clearLocalDatabase() {
     wifiDao.deleteAll();
   }
 
-  Future<void> clearCloudDataBase(String userId) async {
+  void clearResultDatabase() {
+    resultDao.deleteAll();
+  }
+
+  Future<void> clearCloudDatabase(String userId) async {
     await DatabaseService(uid: userId).deleteAllScansOfCurrentUser();
   }
 }

@@ -21,6 +21,7 @@ class _StepCardState extends State<StepCard> {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Text("Step ${widget.stepNum.toString()}"),
+          SizedBox(height: 15,),
           Text(widget.description),
           SizedBox(height: 15,),
           ListView.builder(

@@ -2,6 +2,9 @@ class CustomisedUser {
   String uid;
   bool state = false;
   bool hasBeenContacted = false;
+  bool hasTemperature = false;
+  bool hasCough = false;
+  bool hasSenseLoss = false;
 
   CustomisedUser(this.uid);
 
@@ -29,16 +32,39 @@ class CustomisedUser {
     hasBeenContacted = currentState;
   }
 
-  Map<String, dynamic> toMap() => {
-    "id": uid,
-    "state": state,
-    "contact": hasBeenContacted,
-  };
-
-  static CustomisedUser fromMap(Map<String, dynamic> map){
-    return CustomisedUser(
-        map['id'],
-    );
+  bool get gotTemperature {
+    return hasTemperature;
   }
 
+  set gotTemperature(bool currentState) {
+    hasTemperature = currentState;
+  }
+
+  bool get gotCough {
+    return hasCough;
+  }
+
+  set gotCough(bool currentState) {
+    hasCough = currentState;
+  }
+
+  bool get gotSenseLoss {
+    return hasSenseLoss;
+  }
+
+  set gotSenseLoss(bool currentState) {
+    hasSenseLoss = currentState;
+  }
+
+  Map<String, dynamic> toMap() => {
+        "id": uid,
+        "state": state,
+        "contact": hasBeenContacted,
+      };
+
+  static CustomisedUser fromMap(Map<String, dynamic> map) {
+    return CustomisedUser(
+      map['id'],
+    );
+  }
 }

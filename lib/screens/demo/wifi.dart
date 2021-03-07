@@ -1,15 +1,9 @@
-import 'dart:async';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:tuple/tuple.dart';
 import 'package:wifi_scanning_flutter/models/customised_user.dart';
-import 'package:wifi_scanning_flutter/screens/demo/db_operations.dart';
 import 'package:wifi_scanning_flutter/screens/demo/widgets/cards.dart';
-import 'package:wifi_scanning_flutter/screens/demo/widgets/dialogs.dart';
-import 'package:wifi_scanning_flutter/screens/demo/wifi_matching.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key wifiList}) : super(key: wifiList);
@@ -19,16 +13,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  WifiMatching matcher = new WifiMatching();
-  DatabaseOperations databaseOperations = DatabaseOperations();
-
-  DialogsCreator dialogsCreator = DialogsCreator();
   CardsCreator cardsCreator = CardsCreator();
   int bottomNavigationBarIdx = 0;
-
   bool hasMatch;
-  double strongestNPercentInRssi = 0;
-  double similarityThr = 0;
 
   @override
   void initState() {
@@ -53,34 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text("WiFi List"),
         centerTitle: true,
         backgroundColor: kingsBlue,
-        actions: <Widget>[
-          PopupMenuButton<String>(
-            onSelected: (val) async {
-              switch (val) {
-                case TextMenu.param:
-                  Tuple2<double, double> params = await dialogsCreator
-                      .createParameterAdjustingDialog(context);
-                  strongestNPercentInRssi = params.item1;
-                  similarityThr = params.item2;
-                  break;
-                case TextMenu.match:
-                  setState(() async {
-                    hasMatch = await matcher.matchFingerprints(
-                        user.uid,
-                        Duration(minutes: 15),
-                        strongestNPercentInRssi,
-                        similarityThr);
-                    await dialogsCreator.createResultConfirmingDialog(context,
-                        hasMatch, strongestNPercentInRssi, similarityThr);
-                  });
-                  break;
-              }
-            },
-            itemBuilder: (context) => TextMenu.items
-                .map((e) => PopupMenuItem(value: e, child: Text(e)))
-                .toList(),
-          )
-        ],
       ),
       body: Center(
         child: _widgetOptions.elementAt(bottomNavigationBarIdx),
@@ -108,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           CarouselSlider(
             options: CarouselOptions(
+              height: 600,
               viewportFraction: 0.8,
               initialPage: 0,
               enlargeCenterPage: true,
@@ -124,30 +84,17 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           CarouselSlider(
             options: CarouselOptions(
+              height: 600,
               viewportFraction: 0.8,
               initialPage: 0,
               enlargeCenterPage: true,
               enableInfiniteScroll: false,
             ),
-            items: cardsCreator.createOnlineStepCards(),
+            items: cardsCreator.createOnlineStepCards(context, userId),
           ),
         ],
       )),
     ];
     return widgets;
   }
-}
-
-class TextMenu {
-  static const String param = "Set Matching Parameters";
-  static const String match = "Find Match in Cloud";
-  static const String localDb = "View Local Database";
-  static const String resultDb = "View Result Database";
-
-  static const items = <String>[
-    param,
-    match,
-    localDb,
-    resultDb,
-  ];
 }

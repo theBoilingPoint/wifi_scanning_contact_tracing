@@ -7,19 +7,19 @@ class DialogsCreator {
   DatabaseOperations databaseOperations = DatabaseOperations();
 
   Future<void> createResultConfirmingDialog(BuildContext context, bool hasMatch,
-      double strongestNPercentInRssi, double similarityThr) async {
+      double strongestNPercentInRssi, double similarityThr, double similarity) async {
     return await showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             title: Text("Result"),
-            content: Text("The predicted matching result is: $hasMatch"),
+            content: Text("The predicted matching result is: $hasMatch with similarity ${similarity.toString()}"),
             actions: [
               TextButton(
                   onPressed: () async {
                     await databaseOperations.insertResultToDb(
                         new CustomisedResult(strongestNPercentInRssi,
-                            similarityThr, hasMatch, true));
+                            similarityThr, similarity, hasMatch, true));
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text("This result has been saved."),
                     ));
@@ -30,7 +30,7 @@ class DialogsCreator {
                   onPressed: () async {
                     await databaseOperations.insertResultToDb(
                         new CustomisedResult(strongestNPercentInRssi,
-                            similarityThr, hasMatch, false));
+                            similarityThr, similarity, hasMatch, false));
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text("This result has been saved."),
                     ));

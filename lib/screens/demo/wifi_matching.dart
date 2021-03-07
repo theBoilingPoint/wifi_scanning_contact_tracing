@@ -5,12 +5,13 @@ import 'package:wifi_scanning_flutter/services/cloud_database.dart';
 
 class WifiMatching {
   WifiDao wifiDao = WifiDao();
+  double similarity = 0;
   /*
   * @param timeSpan is the of type Duration
   */
   Future<bool> matchFingerprints(String uid, Duration timeSpan,
       double filterPercentage, double similarityThreshold) async {
-    //Get raw data from cloud and local dbs
+    //Get raw data from cloud and local dbs5
     List<CustomisedWifi> rawLocalWifiList =
         await wifiDao.getAllSortedBy("dateTime");
     List<CustomisedWifi> rawCloudWifiList =
@@ -30,7 +31,7 @@ class WifiMatching {
       DateTime localTimestamp = DateTime.parse(localScan.dateTime);
       rawCloudWifiList.forEach((cloudScan) {
         DateTime cloudTimestamp = DateTime.parse(cloudScan.dateTime);
-        if(localTimestamp.difference(cloudTimestamp) <= timeSpan) {
+        if (localTimestamp.difference(cloudTimestamp) <= timeSpan) {
           //print("Local Timestamp: ${localTimestamp.toString()} Cloud Timestamp: ${cloudTimestamp.toString()}");
           matchedCloudWifiList.add(cloudScan);
           matchedLocalWifiList.add(localScan);
@@ -56,15 +57,15 @@ class WifiMatching {
     bool hasMatch = false;
     groupedCloudWifiList.entries.forEach((cloudScan) {
       DateTime cloudScanKey = DateTime.parse(cloudScan.key);
-      //print("Cur cloud timestamp: " + cloudScanKey.toString());
+      print("Cur cloud timestamp: " + cloudScanKey.toString());
       groupedLocalWifiList.entries.forEach((localScan) {
         if (cloudScanKey.difference(DateTime.parse(localScan.key)) <=
             timeSpan) {
-          //print("Found a matched timestamp");
-          if (computeSimilarityBetweenLists(
-                  cloudScan.value, localScan.value, filterPercentage) >=
-              similarityThreshold) {
-            //print("Similarity accepted");
+          print("Found a matched timestamp");
+          similarity = computeSimilarityBetweenLists(
+                  cloudScan.value, localScan.value, filterPercentage);
+          if (similarity >= similarityThreshold) {
+            print("Similarity accepted");
             hasMatch = true;
           }
         }
@@ -76,30 +77,36 @@ class WifiMatching {
 
   double computeSimilarityBetweenLists(
       List<CustomisedWifi> la, List<CustomisedWifi> lb, filterPercentage) {
-    List<CustomisedWifi> filteredLstA = filterWifiByRssi(la, filterPercentage);
-    List<CustomisedWifi> filteredLstB = filterWifiByRssi(lb, filterPercentage);
+    List<String> filteredLstA = filterWifiByRssi(la, filterPercentage).map((e) => e.bssid).toList();
+    List<String> filteredLstB = filterWifiByRssi(lb, filterPercentage).map((e) => e.bssid).toList();
     print("Filtered List a");
     filteredLstA.forEach((element) => print(
-        "dateTime: ${element.dateTime} BSSID: ${element.bssid} RSSI: ${element.rssi}"));
+        "BSSID: $element"));
     print("Filtered List b");
     filteredLstB.forEach((element) => print(
-        "dateTime: ${element.dateTime} BSSID: ${element.bssid} RSSI: ${element.rssi}"));
+        "BSSID: $element"));
+    
     double similarity = 0;
     if (filteredLstA.length <= filteredLstB.length) {
       double increment = 1 / filteredLstA.length;
+      print("increment: ${increment.toString()}");
       filteredLstA.forEach((element) {
         if (filteredLstB.contains(element)) {
           similarity += increment;
+          print("cur similarity: ${similarity.toString()}");
         }
       });
     } else {
       double increment = 1 / filteredLstB.length;
+      print("increment: ${increment.toString()}");
       filteredLstB.forEach((element) {
         if (filteredLstA.contains(element)) {
           similarity += increment;
+          print("cur similarity: ${similarity.toString()}");
         }
       });
     }
+    print("Similarity: ${similarity.toString()}");
     return similarity;
   }
 

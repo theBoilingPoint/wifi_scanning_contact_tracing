@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 import 'package:wifi/wifi.dart';
+import 'package:wifi_scanning_flutter/models/customised_result.dart';
+import 'package:wifi_scanning_flutter/models/customised_wifi.dart';
 import 'package:wifi_scanning_flutter/screens/demo/db_operations.dart';
+import 'package:wifi_scanning_flutter/screens/demo/widgets/dialogs.dart';
+import 'package:wifi_scanning_flutter/screens/demo/wifi_matching.dart';
 
 import 'step_card.dart';
 
 class CardsCreator {
   DatabaseOperations databaseOperations = DatabaseOperations();
-  List<WifiResult> ssidList = [];
+  DialogsCreator dialogsCreator = DialogsCreator();
+  WifiMatching matcher = new WifiMatching();
 
-  List<Widget> createOnlineStepCards() {
+  List<WifiResult> ssidList = [];
+  List<CustomisedWifi> localDb = [];
+  List<CustomisedResult> resultDb = [];
+
+  double strongestNPercentInRssi = 0;
+  double similarityThr = 0;
+  bool hasMatch = false;
+  double similarity = 0;
+
+  List<Widget> createOnlineStepCards(BuildContext context, String userId) {
     List<StepCard> stepCards = [
       StepCard(
         stepNum: 1,
@@ -17,13 +32,88 @@ class CardsCreator {
       ),
       StepCard(
         stepNum: 2,
-        description: """For each scan in the local database, see if there is a scan from the cloud that is made within 15 minutes. Get 2 sets of matching, 1 for local and 1 for cloud.""",
+        description:
+            """For each scan in the local database, see if there is a scan from the cloud that is made within 15 minutes. Get 2 sets of matching, 1 for local and 1 for cloud.""",
         buttons: [],
       ),
       StepCard(
         stepNum: 3,
-        description: """Group items in each set by timestamps and obtain 2 maps. Loop through entries of each map and return true if the similarity between 2 lists of scans within the same timestamp is above the threshold.""",
-        buttons: [],
+        description:
+            """Group items in each set by timestamps and obtain 2 maps. Loop through entries of each map and return true if the similarity between 2 lists of scans within the same timestamp is above the threshold.""",
+        buttons: [
+          ElevatedButton(
+            child: Text("Set Parameters"),
+            onPressed: () async {
+              Tuple2<double, double> params =
+                  await dialogsCreator.createParameterAdjustingDialog(context);
+              strongestNPercentInRssi = params.item1;
+              similarityThr = params.item2;
+            },
+          ),
+          ElevatedButton(
+            child: Text("Run the Algorithm"),
+            onPressed: () async {
+              hasMatch = await matcher.matchFingerprints(
+                  userId,
+                  Duration(minutes: 15),
+                  strongestNPercentInRssi,
+                  similarityThr);
+              similarity = matcher.similarity;
+              await dialogsCreator.createResultConfirmingDialog(context,
+                  hasMatch, strongestNPercentInRssi, similarityThr, similarity);
+            },
+          ),
+          ElevatedButton(
+            child: Text("View Result Database"),
+            onPressed: () async {
+              resultDb = await databaseOperations.getResultDbBy("similarity");
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Scaffold(
+                            appBar: AppBar(
+                              title: Text("Result Database"),
+                              centerTitle: true,
+                            ),
+                            body: InteractiveViewer(
+                              constrained: false,
+                              child: DataTable(
+                                  columns: [
+                                    DataColumn(label: Text('similarity')),
+                                    DataColumn(
+                                        label: Text('similarityThreshold')),
+                                    DataColumn(label: Text('filterPercentage')),
+                                    DataColumn(label: Text('prediction')),
+                                    DataColumn(label: Text('truth')),
+                                  ],
+                                  rows: resultDb
+                                      .map((e) => DataRow(cells: [
+                                            DataCell(
+                                                Text(e.similarity.toString())),
+                                            DataCell(Text(e.similarityThreshold
+                                                .toString())),
+                                            DataCell(Text(
+                                                e.filterPercentage.toString())),
+                                            DataCell(
+                                                Text(e.prediction.toString())),
+                                            DataCell(Text(e.truth.toString())),
+                                          ]))
+                                      .toList()),
+                            ),
+                          )));
+            },
+          ),
+          ElevatedButton(
+            child: Text("Clear Result Database"),
+            onPressed: () {},
+            onLongPress: () {
+              databaseOperations.clearResultDatabase();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Result database is cleared."),
+              ));
+            },
+          ),
+        ],
       )
     ];
     return stepCards;
@@ -50,22 +140,31 @@ class CardsCreator {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ListView.builder(
-                          padding: EdgeInsets.all(8.0),
-                          itemCount: ssidList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            if (ssidList.isEmpty) {
-                              return Column(
-                                  //TODO need to figure out a display for empty scan!
-                                  );
-                            } else {
-                              return Material(
-                                child: ListTile(
-                                    title: Text(
-                                        "BSSID: ${ssidList[index].bssid} RSSI: ${ssidList[index].level}dBm Frequency: ${ssidList[index].frequency}MHz")),
-                              );
-                            }
-                          })));
+                      builder: (context) => Scaffold(
+                            appBar: AppBar(
+                              title: Text("Current Scan"),
+                              centerTitle: true,
+                            ),
+                            body: InteractiveViewer(
+                              constrained: false,
+                              child: DataTable(
+                                  columns: [
+                                    DataColumn(label: Text('SSID')),
+                                    DataColumn(label: Text('BSSID')),
+                                    DataColumn(label: Text('RSSI')),
+                                    DataColumn(label: Text('Frequency')),
+                                  ],
+                                  rows: ssidList
+                                      .map((e) => DataRow(cells: [
+                                            DataCell(Text(e.ssid)),
+                                            DataCell(Text(e.bssid)),
+                                            DataCell(Text(e.level.toString())),
+                                            DataCell(
+                                                Text(e.frequency.toString())),
+                                          ]))
+                                      .toList()),
+                            ),
+                          )));
             },
           ),
         ],
@@ -84,10 +183,43 @@ class CardsCreator {
             },
           ),
           ElevatedButton(
+            child: Text("View Local Database"),
+            onPressed: () async {
+              localDb = await databaseOperations.getLocalDbBy("dateTime");
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Scaffold(
+                            appBar: AppBar(
+                              title: Text("Local Database"),
+                              centerTitle: true,
+                            ),
+                            body: InteractiveViewer(
+                              constrained: false,
+                              child: DataTable(
+                                  columns: [
+                                    DataColumn(label: Text('dateTime')),
+                                    DataColumn(label: Text('BSSID')),
+                                    DataColumn(label: Text('RSSI')),
+                                  ],
+                                  rows: localDb
+                                      .map((e) => DataRow(cells: [
+                                            DataCell(Text(e.dateTime)),
+                                            DataCell(Text(e.bssid)),
+                                            DataCell(Text(e.rssi.toString())),
+                                          ]))
+                                      .toList()),
+                            ),
+                          )));
+            },
+          ),
+          ElevatedButton(
             child: Text("Clear Local Database"),
-            onPressed: () {},
+            onPressed: () {
+              //print("Please long press this button to make it work");
+            },
             onLongPress: () {
-              databaseOperations.clearLocalDataBase();
+              databaseOperations.clearLocalDatabase();
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text("Local database is cleared."),
               ));
@@ -113,7 +245,7 @@ class CardsCreator {
             child: Text("Clear Current User's Cloud Data"),
             onPressed: () {},
             onLongPress: () {
-              databaseOperations.clearCloudDataBase(userId);
+              databaseOperations.clearCloudDatabase(userId);
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text("Current cloud database has been cleared."),
               ));

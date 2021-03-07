@@ -49,6 +49,8 @@ dependencies:
   # google map/localising essentials
   google_maps_flutter: ^1.1.1
   location: ^3.2.4
+  # UI essentials
+  lottie: ^1.0.0
   # useful plugins
   flutter_bloc: ^6.1.1
   equatable: ^1.2.5
