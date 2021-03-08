@@ -3,37 +3,45 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wifi_scanning_flutter/screens/user/webpageManager.dart';
 
-class HealthyWidgetLayout {
+class ContactWidgetLayout {
   final Color kingsBlue = HexColor('#0a2d50');
 
-  Widget getWidgetWhenHealthy(BuildContext context) {
+  Widget getWidgetWhenContacted(BuildContext context) {
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Lottie.asset("assets/lottie/healthengine-generic-tickbox.json",
-              height: 300, repeat: false),
+          Lottie.asset(
+            "assets/lottie/covid-contact.json",
+            height: 300,
+          ),
           Text(
-            "You are nice and well!",
-            style: TextStyle(fontFamily: "MontserratRegular", fontSize: 30),
+            "You have been contacted",
+            style: TextStyle(fontFamily: "MontserratRegular", fontSize: 27),
           ),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
           Text(
-            "If you are still worried, you can",
+            "Please self-isolate for",
             style: TextStyle(
                 fontFamily: "MontserratRegular",
                 fontStyle: FontStyle.italic,
-                fontSize: 18,
-                fontWeight: FontWeight.w500),
+                fontSize: 25),
+          ),
+          Text(
+            "you can",
+            style: TextStyle(
+                fontFamily: "MontserratRegular",
+                fontStyle: FontStyle.italic,
+                fontSize: 20),
           ),
           SizedBox(
             height: 10,
           ),
           ElevatedButton(
             child: Text(
-              "Book a Quick Test",
+              "Book a Test",
               style: TextStyle(fontSize: 20),
             ),
             style: ButtonStyle(
@@ -44,7 +52,7 @@ class HealthyWidgetLayout {
                   context,
                   new MaterialPageRoute(
                       builder: (context) => WebpageManager(
-                            pageName: "quick_test",
+                            pageName: "booking",
                           )));
             },
           ),

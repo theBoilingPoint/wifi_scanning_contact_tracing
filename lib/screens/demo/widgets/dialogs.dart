@@ -13,7 +13,7 @@ class DialogsCreator {
         builder: (context) {
           return AlertDialog(
             title: Text("Result"),
-            content: Text("The predicted matching result is: $hasMatch with similarity ${similarity.toString()}"),
+            content: Text("The predicted matching result is: $hasMatch with similarity ${similarity.toStringAsFixed(2).toString()}"),
             actions: [
               TextButton(
                   onPressed: () async {

@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:tuple/tuple.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:wifi_scanning_flutter/screens/user/widgets/no_internet.dart';
 
 class WebpageManager extends StatefulWidget {
   final String pageName;
@@ -52,24 +54,37 @@ class _WebpageManagerState extends State<WebpageManager> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(getWebpage().item1),
-        centerTitle: true,
-        backgroundColor: kingsBlue,
-        actions: <Widget>[
-          NavigationControls(_controller.future),
-        ],
-      ),
-      body: Container(
-        child: WebView(
-          javascriptMode: JavascriptMode.unrestricted,
-          initialUrl: getWebpage().item2,
-          onWebViewCreated: (WebViewController webViewController) {
-            _controller.complete(webViewController);
-          },
+        appBar: AppBar(
+          title: Text(
+            getWebpage().item1,
+            style: TextStyle(
+                fontFamily: "MontserratRegular", fontWeight: FontWeight.w600),
+          ),
+          centerTitle: true,
+          backgroundColor: kingsBlue,
+          actions: <Widget>[
+            NavigationControls(_controller.future),
+          ],
         ),
-      ),
-    );
+        body: FutureBuilder(
+          future: Connectivity().checkConnectivity(),
+          builder:
+              (BuildContext context, AsyncSnapshot<ConnectivityResult> result) {
+            if (result.data == ConnectivityResult.none) {
+              return NoInternetPage();
+            } else {
+              return Container(
+                child: WebView(
+                  javascriptMode: JavascriptMode.unrestricted,
+                  initialUrl: getWebpage().item2,
+                  onWebViewCreated: (WebViewController webViewController) {
+                    _controller.complete(webViewController);
+                  },
+                ),
+              );
+            }
+          },
+        ));
   }
 }
 

@@ -23,15 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  connectivity: ^2.0.2
-  hexcolor: ^1.0.6
-  usage: ^3.4.2
-  page_transition: ^1.1.7+2
 
-  #WiFi Essentials
+  #WiFi/internet Essentials
   wifi:
     path: ./wifi-master
-  signal_strength_indicator: ^0.3.1
+  connectivity: ^3.0.2
   # firebase essentials
   firebase_auth: ^0.18.3+1
   cloud_firestore: ^0.14.3+1
@@ -51,7 +47,11 @@ dependencies:
   location: ^3.2.4
   # UI essentials
   lottie: ^1.0.0
+  hexcolor: ^1.0.6
+  cupertino_icons: ^1.0.0
+  page_transition: ^1.1.7+2
   # useful plugins
+  usage: ^3.4.2
   flutter_bloc: ^6.1.1
   equatable: ^1.2.5
   intl: ^0.16.1
@@ -60,7 +60,7 @@ dependencies:
   webview_flutter: ^2.0.1
   carousel_slider: ^3.0.0
   csv: ^4.1.0
-  cupertino_icons: ^1.0.0
+  
 
 dev_dependencies:
   flutter_test:
@@ -80,9 +80,11 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/lottie/healthengine-generic-tickbox.json
+    - assets/lottie/covid19.json
+    - assets/lottie/covid-contact.json
+    - assets/lottie/corona-virus-sick.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -96,30 +98,42 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: MontserratRegular
+      fonts:
+        - asset: assets/fonts/MontserratRegular/Montserrat-Regular.ttf
+        - asset: assets/fonts/MontserratRegular/Montserrat-Italic.ttf
+          style: italic
+    
+    - family: MontserratBold
+      fonts:
+        - asset: assets/fonts/MontserratBold/Montserrat-SemiBold.ttf
+        - asset: assets/fonts/MontserratBold/Montserrat-SemiBoldItalic.ttf
+          style: italic
+
     - family: KingsCaslonDisplay
       fonts:
-        - asset: fonts/KingsCaslonDisplay/KingsCaslonDisplay.ttf
-        - asset: fonts/KingsCaslonDisplay/KingsCaslonDisplayItalic.ttf
+        - asset: assets/fonts/KingsCaslonDisplay/KingsCaslonDisplay.ttf
+        - asset: assets/fonts/KingsCaslonDisplay/KingsCaslonDisplayItalic.ttf
           style: italic
 
     - family: KingsCaslonText
       fonts:
-        - asset: fonts/KingsCaslonText/KingsCaslon.ttf
-        - asset: fonts/KingsCaslonText/KingsCaslonItalic.ttf
+        - asset: assets/fonts/KingsCaslonText/KingsCaslon.ttf
+        - asset: assets/fonts/KingsCaslonText/KingsCaslonItalic.ttf
           style: italic
-        - asset: fonts/KingsCaslonText/KingsCaslonSemiBold.ttf
+        - asset: assets/fonts/KingsCaslonText/KingsCaslonSemiBold.ttf
           weight: 700
-        - asset: fonts/KingsCaslonText/KingsCaslonSemiBoldItalic.ttf
+        - asset: assets/fonts/KingsCaslonText/KingsCaslonSemiBoldItalic.ttf
           style: italic
           weight: 700
 
     - family: KingsBureauGrot
       fonts:
-        - asset: fonts/KingsBureauGrot/KingsBureauGrot-FiveOne.ttf
-        - asset: fonts/KingsBureauGrot/KingsBureauGrot-FiveOneItal.ttf
+        - asset: assets/fonts/KingsBureauGrot/KingsBureauGrot-FiveOne.ttf
+        - asset: assets/fonts/KingsBureauGrot/KingsBureauGrot-FiveOneItal.ttf
           style: italic
-        - asset: fonts/KingsBureauGrot/KingsBureauGrot-ThreeSeven.ttf
-        - asset: fonts/KingsBureauGrot/KingsBureauGrot-ThrSevnItal.ttf
+        - asset: assets/fonts/KingsBureauGrot/KingsBureauGrot-ThreeSeven.ttf
+        - asset: assets/fonts/KingsBureauGrot/KingsBureauGrot-ThrSevnItal.ttf
           style: italic
 
   # For details regarding fonts from package dependencies,

@@ -10,6 +10,13 @@ import 'package:wifi_scanning_flutter/screens/demo/wifi_matching.dart';
 import 'step_card.dart';
 
 class CardsCreator {
+  //2 methods to interact with parent widgets
+  //changeUserState is to change the Provider user state of WiFiScanPage
+  //refreshMainPage is for refreshing the main page once got the matching algorithm result
+  final Function changeUserState;
+  final Function refreshMainPage;
+  CardsCreator(this.changeUserState, this.refreshMainPage);
+
   DatabaseOperations databaseOperations = DatabaseOperations();
   DialogsCreator dialogsCreator = DialogsCreator();
   WifiMatching matcher = new WifiMatching();
@@ -61,6 +68,8 @@ class CardsCreator {
               similarity = matcher.similarity;
               await dialogsCreator.createResultConfirmingDialog(context,
                   hasMatch, strongestNPercentInRssi, similarityThr, similarity);
+              changeUserState(hasMatch);
+              refreshMainPage();
             },
           ),
           ElevatedButton(

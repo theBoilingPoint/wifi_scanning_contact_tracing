@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ import 'package:wifi_scanning_flutter/screens/demo/wifi.dart';
 import 'package:wifi_scanning_flutter/screens/user/common_questions.dart';
 import 'package:wifi_scanning_flutter/screens/user/symptom.dart';
 import 'package:wifi_scanning_flutter/screens/user/webpageManager.dart';
+import 'package:wifi_scanning_flutter/screens/user/widgets/contact_widget.dart';
 import 'package:wifi_scanning_flutter/screens/user/widgets/healthy_widget.dart';
 import 'package:wifi_scanning_flutter/screens/user/widgets/infected_widget.dart';
 import 'package:wifi_scanning_flutter/screens/user/widgets/symptoms_widget.dart';
@@ -24,7 +26,6 @@ class User extends StatefulWidget {
 
 class UserHomePage extends State<User> {
   final Color kingsBlue = HexColor('#0a2d50');
-  final Color kingsPearlGrey = HexColor("cdd7dc");
   final AuthService _auth = AuthService();
 
   @override
@@ -61,76 +62,121 @@ class UserHomePage extends State<User> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Personal Page"),
+        title: Text(
+          "Home",
+          style: TextStyle(
+              fontFamily: "MontserratRegular", fontWeight: FontWeight.w600),
+        ),
         centerTitle: true,
         backgroundColor: kingsBlue,
       ),
       drawer: Drawer(
-        child: ListView(padding: EdgeInsets.only(top: 70), children: <Widget>[
-          TextButton(
-            child: Text("Scan WiFi"),
-            onPressed: () {
-              Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => MyHomePage()));
-            },
-          ),
-          TextButton(
-            child: Text("Check Symptoms"),
-            onPressed: () async {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new SymptomsCheckPage(
-                            notifyParent: refresh,
-                          )));
-            },
-          ),
-          TextButton(
-            child: Text("Check Local Tier"),
-            onPressed: () async {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => WebpageManager(
-                            pageName: "tier",
-                          )));
-            },
-          ),
-          TextButton(
-            child: Text("Check Heatmap"),
-            onPressed: () async {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => WebpageManager(
-                            pageName: "heatmap",
-                          )));
-            },
-          ),
-          TextButton(
-            child: Text("Common Questions"),
-            onPressed: () async {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => CommonQuestionsPage()));
-            },
-          ),
-          TextButton(
-            child: Text("Logout"),
-            onPressed: () async {
-              await _auth.signOut();
-              //Go back to sign in page by removing the top elements of the page stack
-              Navigator.popUntil(context, ModalRoute.withName("/"));
-            },
-          ),
-        ]),
+        child: Container(
+          alignment: Alignment.center,
+          child: ListView(
+              padding: EdgeInsets.only(top: 50),
+              shrinkWrap: true,
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(CupertinoIcons.wifi),
+                  title: Text(
+                    "Scan WiFi",
+                    style:
+                        TextStyle(fontFamily: "MontserratBold", fontSize: 20),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => WifiScanPage(
+                                  notifyParent: refresh,
+                                )));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(CupertinoIcons.checkmark_rectangle),
+                  title: Text(
+                    "Check Symptoms",
+                    style:
+                        TextStyle(fontFamily: "MontserratBold", fontSize: 20),
+                  ),
+                  onTap: () async {
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => new SymptomsCheckPage(
+                                  notifyParent: refresh,
+                                )));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(CupertinoIcons.chart_bar_alt_fill),
+                  title: Text(
+                    "Check Local Tier",
+                    style:
+                        TextStyle(fontFamily: "MontserratBold", fontSize: 20),
+                  ),
+                  onTap: () async {
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => WebpageManager(
+                                  pageName: "tier",
+                                )));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(CupertinoIcons.map_pin_ellipse),
+                  title: Text(
+                    "Check Heatmap",
+                    style:
+                        TextStyle(fontFamily: "MontserratBold", fontSize: 20),
+                  ),
+                  onTap: () async {
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => WebpageManager(
+                                  pageName: "heatmap",
+                                )));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(CupertinoIcons.question_circle),
+                  title: Text(
+                    "Common Questions",
+                    style:
+                        TextStyle(fontFamily: "MontserratBold", fontSize: 20),
+                  ),
+                  onTap: () async {
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => CommonQuestionsPage()));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.logout),
+                  title: Text(
+                    "Logout",
+                    style:
+                        TextStyle(fontFamily: "MontserratBold", fontSize: 20),
+                  ),
+                  onTap: () async {
+                    await _auth.signOut();
+                    //Go back to sign in page by removing the top elements of the page stack
+                    Navigator.popUntil(context, ModalRoute.withName("/"));
+                  },
+                ),
+              ]),
+        ),
       ),
       body: Center(
         child: mainWidget,
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.priority_high),
+        backgroundColor: kingsBlue,
         label: Text("Toggle Infection State"),
         onPressed: () {
           toggleInfectionState();
@@ -147,6 +193,7 @@ class UserHomePage extends State<User> {
   InfectedWidgetLayout infectedWidgetLayout = InfectedWidgetLayout();
   SymptomsWidgetLayout symptomsWidgetLayout = SymptomsWidgetLayout();
   HealthyWidgetLayout healthyWidgetLayout = HealthyWidgetLayout();
+  ContactWidgetLayout contactWidgetLayout = ContactWidgetLayout();
 
   Widget getMainPage(BuildContext context, CustomisedUser curUser) {
     if (curUser.infectionState) {
@@ -156,8 +203,7 @@ class UserHomePage extends State<User> {
         curUser.gotSenseLoss) {
       return symptomsWidgetLayout.getWidgetWhenGotSymptoms(context);
     } else if (curUser.hasBeenContacted) {
-      return Text(
-          "You have been in contact with someone who's infected. Please self-isolate.");
+      return contactWidgetLayout.getWidgetWhenContacted(context);
     } else {
       return healthyWidgetLayout.getWidgetWhenHealthy(context);
     }

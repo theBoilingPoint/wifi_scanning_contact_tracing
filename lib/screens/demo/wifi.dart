@@ -5,15 +5,16 @@ import 'package:provider/provider.dart';
 import 'package:wifi_scanning_flutter/models/customised_user.dart';
 import 'package:wifi_scanning_flutter/screens/demo/widgets/cards.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key wifiList}) : super(key: wifiList);
+class WifiScanPage extends StatefulWidget {
+  final Function() notifyParent;
+  const WifiScanPage({Key wifiList, @required this.notifyParent})
+      : super(key: wifiList);
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _WifiScanPageState createState() => new _WifiScanPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  CardsCreator cardsCreator = CardsCreator();
+class _WifiScanPageState extends State<WifiScanPage> {
   int bottomNavigationBarIdx = 0;
   bool hasMatch;
 
@@ -32,12 +33,24 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final user = Provider.of<CustomisedUser>(context);
     final Color kingsBlue = HexColor('#0a2d50');
+
+    void changeUserState(bool hasMatch) {
+      user.hasBeenContacted = hasMatch;
+    }
+
+    CardsCreator cardsCreator =
+        CardsCreator(changeUserState, widget.notifyParent);
+
     List<Widget> _widgetOptions =
-        createBottomNavigatorBarWidgets(context, user.uid);
+        createBottomNavigatorBarWidgets(context, cardsCreator, user.uid);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("WiFi List"),
+        title: Text(
+          "WiFi List",
+          style: TextStyle(
+              fontFamily: "MontserratRegular", fontWeight: FontWeight.w600),
+        ),
         centerTitle: true,
         backgroundColor: kingsBlue,
       ),
@@ -58,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> createBottomNavigatorBarWidgets(
-      BuildContext context, String userId) {
+      BuildContext context, CardsCreator cardsCreator, String userId) {
     List<Widget> widgets = [
       Container(
           child: Column(

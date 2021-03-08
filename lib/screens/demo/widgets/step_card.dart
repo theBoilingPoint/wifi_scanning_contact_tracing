@@ -20,18 +20,33 @@ class _StepCardState extends State<StepCard> {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          Text("Step ${widget.stepNum.toString()}"),
-          SizedBox(height: 15,),
-          Text(widget.description),
-          SizedBox(height: 15,),
-          ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: widget.buttons.length,
-            itemBuilder: (context, index) {
-              return widget.buttons[index];
-            }
+          Text(
+            "Step ${widget.stepNum.toString()}",
+            style: TextStyle(
+                fontFamily: "MontserratBold",
+                fontSize: 30,
+                fontWeight: FontWeight.w600),
           ),
+          SizedBox(
+            height: 15,
+          ),
+          Text(
+            widget.description,
+            style: TextStyle(
+              fontFamily: "MontserratRegular",
+              fontSize: 20,
+            ),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: widget.buttons.length,
+              itemBuilder: (context, index) {
+                return widget.buttons[index];
+              }),
         ],
       ),
     );
