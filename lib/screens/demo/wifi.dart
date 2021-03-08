@@ -66,6 +66,7 @@ class _WifiScanPageState extends State<WifiScanPage> {
         ],
         currentIndex: bottomNavigationBarIdx,
         onTap: _onItemTapped,
+        selectedItemColor: kingsBlue,
       ),
     );
   }

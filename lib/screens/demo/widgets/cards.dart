@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:tuple/tuple.dart';
 import 'package:wifi/wifi.dart';
 import 'package:wifi_scanning_flutter/models/customised_result.dart';
@@ -16,6 +17,7 @@ class CardsCreator {
   final Function changeUserState;
   final Function refreshMainPage;
   CardsCreator(this.changeUserState, this.refreshMainPage);
+  final Color kingsBlue = HexColor('#0a2d50');
 
   DatabaseOperations databaseOperations = DatabaseOperations();
   DialogsCreator dialogsCreator = DialogsCreator();
@@ -50,6 +52,8 @@ class CardsCreator {
         buttons: [
           ElevatedButton(
             child: Text("Set Parameters"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(kingsBlue)),
             onPressed: () async {
               Tuple2<double, double> params =
                   await dialogsCreator.createParameterAdjustingDialog(context);
@@ -59,6 +63,8 @@ class CardsCreator {
           ),
           ElevatedButton(
             child: Text("Run the Algorithm"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(kingsBlue)),
             onPressed: () async {
               hasMatch = await matcher.matchFingerprints(
                   userId,
@@ -74,6 +80,8 @@ class CardsCreator {
           ),
           ElevatedButton(
             child: Text("View Result Database"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(kingsBlue)),
             onPressed: () async {
               resultDb = await databaseOperations.getResultDbBy("similarity");
               Navigator.push(
@@ -81,8 +89,14 @@ class CardsCreator {
                   MaterialPageRoute(
                       builder: (context) => Scaffold(
                             appBar: AppBar(
-                              title: Text("Result Database"),
+                              title: Text(
+                                "Result Database",
+                                style: TextStyle(
+                                    fontFamily: "MontserratRegular",
+                                    fontWeight: FontWeight.w600),
+                              ),
                               centerTitle: true,
+                              backgroundColor: kingsBlue,
                             ),
                             body: InteractiveViewer(
                               constrained: false,
@@ -114,6 +128,8 @@ class CardsCreator {
           ),
           ElevatedButton(
             child: Text("Clear Result Database"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(kingsBlue)),
             onPressed: () {},
             onLongPress: () {
               databaseOperations.clearResultDatabase();
@@ -136,6 +152,8 @@ class CardsCreator {
         buttons: [
           ElevatedButton(
             child: Text("Scan Wifi"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(kingsBlue)),
             onPressed: () async {
               ssidList = await databaseOperations.scanWifi();
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -145,14 +163,22 @@ class CardsCreator {
           ),
           ElevatedButton(
             child: Text("View Current Scan"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(kingsBlue)),
             onPressed: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => Scaffold(
                             appBar: AppBar(
-                              title: Text("Current Scan"),
+                              title: Text(
+                                "Current Scan",
+                                style: TextStyle(
+                                    fontFamily: "MontserratRegular",
+                                    fontWeight: FontWeight.w600),
+                              ),
                               centerTitle: true,
+                              backgroundColor: kingsBlue,
                             ),
                             body: InteractiveViewer(
                               constrained: false,
@@ -184,6 +210,8 @@ class CardsCreator {
         buttons: [
           ElevatedButton(
             child: Text("Store Current Scan"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(kingsBlue)),
             onPressed: () {
               databaseOperations.storeScansInLocalDatabase(ssidList);
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -193,6 +221,8 @@ class CardsCreator {
           ),
           ElevatedButton(
             child: Text("View Local Database"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(kingsBlue)),
             onPressed: () async {
               localDb = await databaseOperations.getLocalDbBy("dateTime");
               Navigator.push(
@@ -200,8 +230,14 @@ class CardsCreator {
                   MaterialPageRoute(
                       builder: (context) => Scaffold(
                             appBar: AppBar(
-                              title: Text("Local Database"),
+                              title: Text(
+                                "Local Database",
+                                style: TextStyle(
+                                    fontFamily: "MontserratRegular",
+                                    fontWeight: FontWeight.w600),
+                              ),
                               centerTitle: true,
+                              backgroundColor: kingsBlue,
                             ),
                             body: InteractiveViewer(
                               constrained: false,
@@ -224,6 +260,8 @@ class CardsCreator {
           ),
           ElevatedButton(
             child: Text("Clear Local Database"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(kingsBlue)),
             onPressed: () {
               //print("Please long press this button to make it work");
             },
@@ -243,6 +281,8 @@ class CardsCreator {
         buttons: [
           ElevatedButton(
             child: Text("Upload to Cloud"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(kingsBlue)),
             onPressed: () {
               databaseOperations.uploadScansToCloud(userId);
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -252,6 +292,8 @@ class CardsCreator {
           ),
           ElevatedButton(
             child: Text("Clear Current User's Cloud Data"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(kingsBlue)),
             onPressed: () {},
             onLongPress: () {
               databaseOperations.clearCloudDatabase(userId);

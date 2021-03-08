@@ -85,6 +85,7 @@ flutter:
     - assets/lottie/covid19.json
     - assets/lottie/covid-contact.json
     - assets/lottie/corona-virus-sick.json
+    - assets/lottie/no-connection.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

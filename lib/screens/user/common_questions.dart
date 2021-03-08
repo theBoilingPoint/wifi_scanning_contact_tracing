@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:wifi_scanning_flutter/screens/user/widgets/question_card.dart';
 
 class CommonQuestionsPage extends StatefulWidget {
   CommonQuestionsPage({Key key}) : super(key: key);
@@ -10,6 +11,7 @@ class CommonQuestionsPage extends StatefulWidget {
 
 class _CommonQuestionsPageState extends State<CommonQuestionsPage> {
   final Color kingsBlue = HexColor('#0a2d50');
+  QuestionCard questionCard = QuestionCard();
 
   @override
   Widget build(BuildContext context) {
@@ -27,22 +29,11 @@ class _CommonQuestionsPageState extends State<CommonQuestionsPage> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ExpansionTile(
-              title: Text("When will this bloody lockdown end GODDAMN IT?!!"),
-              children: [
-                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Text("Keep guessing my child."),
-                ]),
-              ],
-            ),
-            ExpansionTile(
-              title: Text("What can I do if I want to talk to someone?"),
-              children: [
-                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Text("Keep guessing my child."),
-                ]),
-              ],
-            ),
+            questionCard.getQuestionCard(
+                "When will the lockdown end?", "Keep guessing my child."),
+            questionCard.getQuestionCard(
+                "What can I do if I want to talk to someone?",
+                "Keep guessing my child."),
           ],
         ),
       ),
