@@ -16,12 +16,6 @@ class WifiMatching {
         await wifiDao.getAllSortedBy("dateTime");
     List<CustomisedWifi> rawCloudWifiList =
         await DatabaseService(uid: uid).getAllScansFromCloudMadeByOtherUsers();
-    // print("Raw local data: ");
-    // rawLocalWifiList.forEach((element) => print(
-    //     "dateTime: ${element.dateTime} BSSID: ${element.bssid} RSSI: ${element.rssi}"));
-    // print("raw cloud data: ");
-    // rawCloudWifiList.forEach((element) => print(
-    //     "dateTime: ${element.dateTime} BSSID: ${element.bssid} RSSI: ${element.rssi}"));
 
     //Find all data in the cloud and local dbs that match each other's timestamp
     //Datatype here is set because we don't my repetitive data
@@ -32,7 +26,6 @@ class WifiMatching {
       rawCloudWifiList.forEach((cloudScan) {
         DateTime cloudTimestamp = DateTime.parse(cloudScan.dateTime);
         if (localTimestamp.difference(cloudTimestamp) <= timeSpan) {
-          //print("Local Timestamp: ${localTimestamp.toString()} Cloud Timestamp: ${cloudTimestamp.toString()}");
           matchedCloudWifiList.add(cloudScan);
           matchedLocalWifiList.add(localScan);
         }

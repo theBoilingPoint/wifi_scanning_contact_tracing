@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
-import 'package:wifi_scanning_flutter/models/customised_user.dart';
+import 'package:wifi_scanning_flutter/data/user_preference.dart';
 
 class SymptomsCheckPage extends StatefulWidget {
   final Function() notifyParent;
@@ -16,7 +15,11 @@ class _SymptomsCheckPageState extends State<SymptomsCheckPage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<CustomisedUser>(context);
+    Future<void> setTimer() async {
+      if(UserPreference.getIsolationDue() == "") {
+        UserPreference.setIsolationDue(DateTime.now().add(Duration(days: 10)).toString());
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -33,26 +36,28 @@ class _SymptomsCheckPageState extends State<SymptomsCheckPage> {
         children: [
           CheckboxListTile(
             title: Text(
-              "High Temperature",
+              "High Temperature (fever)",
               style: TextStyle(
                   fontFamily: "MontserratBold",
                   fontSize: 25,
                   fontWeight: FontWeight.w500),
             ),
             subtitle: Text(
-              "this means you feel hot to touch on your chest or back (you do not need to measure your temperature)",
+              "This means you feel hot to touch on your chest or back (you do not need to measure your temperature)",
               style: TextStyle(
                   fontFamily: "MontserratRegular",
                   fontStyle: FontStyle.italic,
                   fontSize: 20,
                   fontWeight: FontWeight.w500),
             ),
-            value: user.gotTemperature,
-            onChanged: (bool val) {
-              setState(() {
-                user.gotTemperature = val;
-                widget.notifyParent();
-              });
+            value: UserPreference.getHasFever(),
+            onChanged: (bool val) async {
+              setState(() {});
+              await UserPreference.setHasFever(val);
+              if(UserPreference.getHasFever()){
+                await setTimer();
+              }
+              widget.notifyParent();
             },
           ),
           CheckboxListTile(
@@ -64,19 +69,21 @@ class _SymptomsCheckPageState extends State<SymptomsCheckPage> {
                   fontWeight: FontWeight.w500),
             ),
             subtitle: Text(
-              "this means coughing a lot for more than an hour, or 3 or more coughing episodes in 24 hours (if you usually have a cough, it may be worse than usual)",
+              "This means coughing a lot for more than an hour, or 3 or more coughing episodes in 24 hours (if you usually have a cough, it may be worse than usual)",
               style: TextStyle(
                   fontFamily: "MontserratRegular",
                   fontStyle: FontStyle.italic,
                   fontSize: 20,
                   fontWeight: FontWeight.w500),
             ),
-            value: user.gotCough,
-            onChanged: (bool val) {
-              setState(() {
-                user.gotCough = val;
-                widget.notifyParent();
-              });
+            value: UserPreference.getHasCough(),
+            onChanged: (bool val) async {
+              setState(() {});
+              await UserPreference.setHasCough(val);
+              if(UserPreference.getHasCough()){
+                setTimer();
+              }
+              widget.notifyParent();
             },
           ),
           CheckboxListTile(
@@ -88,19 +95,21 @@ class _SymptomsCheckPageState extends State<SymptomsCheckPage> {
                   fontWeight: FontWeight.w500),
             ),
             subtitle: Text(
-              "this means you've noticed you cannot smell or taste anything, or things smell or taste different to normal",
+              "This means you've noticed you cannot smell or taste anything, or things smell or taste different to normal",
               style: TextStyle(
                   fontFamily: "MontserratRegular",
                   fontStyle: FontStyle.italic,
                   fontSize: 20,
                   fontWeight: FontWeight.w500),
             ),
-            value: user.gotSenseLoss,
-            onChanged: (bool val) {
-              setState(() {
-                user.gotSenseLoss = val;
-                widget.notifyParent();
-              });
+            value: UserPreference.getHasSenseLoss(),
+            onChanged: (bool val) async {
+              setState(() {});
+              await UserPreference.setHasSenseLoss(val);
+              if(UserPreference.getHasSenseLoss()){
+                await setTimer();
+              }
+              widget.notifyParent();
             },
           ),
         ],

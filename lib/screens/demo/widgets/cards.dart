@@ -74,7 +74,7 @@ class CardsCreator {
               similarity = matcher.similarity;
               await dialogsCreator.createResultConfirmingDialog(context,
                   hasMatch, strongestNPercentInRssi, similarityThr, similarity);
-              changeUserState(hasMatch);
+              await changeUserState(hasMatch);
               refreshMainPage();
             },
           ),

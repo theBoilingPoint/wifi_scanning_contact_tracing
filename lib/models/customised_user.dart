@@ -5,6 +5,7 @@ class CustomisedUser {
   bool hasTemperature = false;
   bool hasCough = false;
   bool hasSenseLoss = false;
+  String isolationDue = "";
 
   CustomisedUser(this.uid);
 
@@ -54,6 +55,14 @@ class CustomisedUser {
 
   set gotSenseLoss(bool currentState) {
     hasSenseLoss = currentState;
+  }
+
+  String get isolationUntil {
+    return isolationDue;
+  }
+
+  set isolationUntil(String date) {
+    isolationDue = date;
   }
 
   Map<String, dynamic> toMap() => {

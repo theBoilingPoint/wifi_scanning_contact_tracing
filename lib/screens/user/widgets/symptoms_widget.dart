@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lottie/lottie.dart';
+import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 import 'package:wifi_scanning_flutter/screens/user/webpageManager.dart';
 
 class SymptomsWidgetLayout {
   final Color kingsBlue = HexColor('#0a2d50');
 
-  Widget getWidgetWhenGotSymptoms(BuildContext context) {
+  Widget getWidgetWhenGotSymptoms(BuildContext context, Duration duration) {
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -32,17 +33,27 @@ class SymptomsWidgetLayout {
                 fontStyle: FontStyle.italic,
                 fontSize: 23),
           ),
-          Text(
-            "you can",
-            style: TextStyle(
-                fontFamily: "MontserratRegular",
-                fontStyle: FontStyle.italic,
-                fontSize: 20),
+          SlideCountdownClock(
+            duration: duration,
+            slideDirection: SlideDirection.Down,
+            separator: ":",
+            textStyle: TextStyle(
+              fontFamily: "MontserratRegular",
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            onDone: () {
+                
+            },
           ),
           SizedBox(
             height: 10,
           ),
-          ElevatedButton(
+          ListView(
+            padding: EdgeInsets.symmetric(horizontal: 70),
+            shrinkWrap: true,
+            children: [
+            ElevatedButton(
             child: Text(
               "Book a Test",
               style: TextStyle(fontSize: 20),
@@ -58,6 +69,25 @@ class SymptomsWidgetLayout {
                             pageName: "booking",
                           )));
             },
+          ),
+          ElevatedButton(
+            child: Text(
+              "Get an Isolation Note",
+              style: TextStyle(fontSize: 20),
+            ),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(kingsBlue),
+            ),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => WebpageManager(
+                            pageName: "isolation_note",
+                          )));
+            },
+          ),
+            ],
           ),
         ],
       ),

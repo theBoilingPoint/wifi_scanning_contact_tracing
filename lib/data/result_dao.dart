@@ -28,9 +28,9 @@ class ResultDao {
     );
 
     return recordSnapShots.map((snapshot) {
-      final user = CustomisedResult.fromMap(snapshot.value);
+      final result = CustomisedResult.fromMap(snapshot.value);
       print(snapshot.key);
-      return user;
+      return result;
     }).toList();
   }
 }

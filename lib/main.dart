@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wifi_scanning_flutter/data/user_preference.dart';
 import 'package:wifi_scanning_flutter/models/customised_user.dart';
 import 'package:wifi_scanning_flutter/screens/wrapper.dart';
 import 'package:wifi_scanning_flutter/services/auth.dart';
@@ -9,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async => {
       WidgetsFlutterBinding.ensureInitialized(),
       await Firebase.initializeApp(),
+      await UserPreference.init(),
       runApp(MyApp()),
     };
 

@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -15,65 +15,55 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# auto update dependencies by ctrl+shift+p -> pubspec assist -> (package name)
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.10.0 <3.0.0'
+  sdk: ">=2.10.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-
-  #WiFi/internet Essentials
   wifi:
     path: ./wifi-master
-  connectivity: ^3.0.2
-  # firebase essentials
-  firebase_auth: ^0.18.3+1
-  cloud_firestore: ^0.14.3+1
-  firebase_core: ^0.5.3
-  # Local database essentials
-  sqflite: ^1.3.2+2
-  sembast: ^2.4.8+1
-  hive_flutter: ^0.3.1
-  path_provider: ^1.6.27
-  # Background Activities Essentials
   background_fetch: ^0.6.0
-  shared_preferences: ^0.5.12+4
-  # user data stream essential
-  provider: ^4.3.2+2
-  # google map/localising essentials
-  google_maps_flutter: ^1.1.1
-  location: ^3.2.4
-  # UI essentials
-  lottie: ^1.0.0
-  hexcolor: ^1.0.6
-  cupertino_icons: ^1.0.0
-  page_transition: ^1.1.7+2
-  # useful plugins
-  usage: ^3.4.2
-  flutter_bloc: ^6.1.1
-  equatable: ^1.2.5
-  intl: ^0.16.1
-  tuple: ^1.0.3
-  collection: ^1.14.13
-  webview_flutter: ^2.0.1
   carousel_slider: ^3.0.0
+  cloud_firestore: ^1.0.0
+  collection: ^1.14.13
+  connectivity: ^3.0.2
   csv: ^4.1.0
-  
+  cupertino_icons: ^1.0.0
+  equatable: ^1.2.5
+  firebase_auth: ^1.0.0
+  firebase_core: ^1.0.0
+  firebase_core_platform_interface: ^4.0.0
+  firebase_messaging: ^9.0.0
+  flutter_bloc: ^6.1.1
+  hexcolor: ^1.0.6
+  hive_flutter: ^1.0.0
+  intl: ^0.17.0
+  lottie: ^1.0.0
+  page_transition: ^1.1.7+2
+  path_provider: ^2.0.1
+  provider: ^4.3.2+2
+  sembast: ^2.4.8+1
+  shared_preferences: ^2.0.3
+  slide_countdown_clock: ^1.0.3
+  sqflite: ^1.3.2+2
+  tuple: ^1.0.3
+  usage: ^3.4.2
+  webview_flutter: ^2.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  hive_generator: ^0.8.2
   build_runner: ^1.11.1
+  hive_generator: ^1.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -86,13 +76,13 @@ flutter:
     - assets/lottie/covid-contact.json
     - assets/lottie/corona-virus-sick.json
     - assets/lottie/no-connection.json
+    - assets/lottie/covid.json
+    - assets/lottie/loading.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
@@ -104,7 +94,7 @@ flutter:
         - asset: assets/fonts/MontserratRegular/Montserrat-Regular.ttf
         - asset: assets/fonts/MontserratRegular/Montserrat-Italic.ttf
           style: italic
-    
+
     - family: MontserratBold
       fonts:
         - asset: assets/fonts/MontserratBold/Montserrat-SemiBold.ttf
@@ -122,20 +112,11 @@ flutter:
         - asset: assets/fonts/KingsCaslonText/KingsCaslon.ttf
         - asset: assets/fonts/KingsCaslonText/KingsCaslonItalic.ttf
           style: italic
-        - asset: assets/fonts/KingsCaslonText/KingsCaslonSemiBold.ttf
-          weight: 700
-        - asset: assets/fonts/KingsCaslonText/KingsCaslonSemiBoldItalic.ttf
-          style: italic
-          weight: 700
 
     - family: KingsBureauGrot
       fonts:
         - asset: assets/fonts/KingsBureauGrot/KingsBureauGrot-FiveOne.ttf
         - asset: assets/fonts/KingsBureauGrot/KingsBureauGrot-FiveOneItal.ttf
           style: italic
-        - asset: assets/fonts/KingsBureauGrot/KingsBureauGrot-ThreeSeven.ttf
-        - asset: assets/fonts/KingsBureauGrot/KingsBureauGrot-ThrSevnItal.ttf
-          style: italic
-
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

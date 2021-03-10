@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lottie/lottie.dart';
+import 'package:slide_countdown_clock/slide_countdown_clock.dart';
+import 'package:wifi_scanning_flutter/data/user_preference.dart';
 import 'package:wifi_scanning_flutter/screens/user/webpageManager.dart';
 
 class ContactWidgetLayout {
   final Color kingsBlue = HexColor('#0a2d50');
+  // final Function refreshMainPage;
+  // ContactWidgetLayout(this.refreshMainPage);
 
-  Widget getWidgetWhenContacted(BuildContext context) {
+  Widget getWidgetWhenContacted(BuildContext context, Duration duration) {
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -29,17 +33,28 @@ class ContactWidgetLayout {
                 fontStyle: FontStyle.italic,
                 fontSize: 25),
           ),
-          Text(
-            "you can",
-            style: TextStyle(
-                fontFamily: "MontserratRegular",
-                fontStyle: FontStyle.italic,
-                fontSize: 20),
+          SlideCountdownClock(
+            duration: duration,
+            slideDirection: SlideDirection.Down,
+            separator: ":",
+            textStyle: TextStyle(
+              fontFamily: "MontserratRegular",
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            onDone: () async {
+              await UserPreference.setContactedState(false);
+              //refresh();
+            },
           ),
           SizedBox(
             height: 10,
           ),
-          ElevatedButton(
+          ListView(
+            padding: EdgeInsets.symmetric(horizontal: 70),
+            shrinkWrap: true,
+            children: [
+            ElevatedButton(
             child: Text(
               "Book a Test",
               style: TextStyle(fontSize: 20),
@@ -55,6 +70,25 @@ class ContactWidgetLayout {
                             pageName: "booking",
                           )));
             },
+          ),
+          ElevatedButton(
+            child: Text(
+              "Get an Isolation Note",
+              style: TextStyle(fontSize: 20),
+            ),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(kingsBlue),
+            ),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => WebpageManager(
+                            pageName: "isolation_note",
+                          )));
+            },
+          ),
+            ],
           ),
         ],
       ),

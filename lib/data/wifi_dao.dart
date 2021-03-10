@@ -45,9 +45,9 @@ class WifiDao {
     );
 
     return recordSnapShots.map((snapshot) {
-      final user = CustomisedWifi.fromMap(snapshot.value);
+      final wifi = CustomisedWifi.fromMap(snapshot.value);
       print(snapshot.key);
-      return user;
+      return wifi;
     }).toList();
   }
 
@@ -63,9 +63,9 @@ class WifiDao {
     );
 
     return recordSnapShots.map((snapshot) {
-      final user = CustomisedWifi.fromMap(snapshot.value);
+      final wifi = CustomisedWifi.fromMap(snapshot.value);
       print(snapshot.key);
-      return user;
+      return wifi;
     }).toList();
   }
 }

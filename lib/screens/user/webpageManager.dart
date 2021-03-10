@@ -30,6 +30,8 @@ class _WebpageManagerState extends State<WebpageManager> {
   final String QUICK_TEST_TITLE = "Rapid Lateral Flow Test";
   final String QUICK_TEST_URL =
       "https://www.gov.uk/find-covid-19-lateral-flow-test-site";
+  final String ISOLATION_NOTE_TITLE = "Isolation Note";
+  final String ISOLATION_NOTE_URL = "https://111.nhs.uk/isolation-note/screener-question";
 
   Completer<WebViewController> _controller = Completer<WebViewController>();
 
@@ -46,6 +48,9 @@ class _WebpageManagerState extends State<WebpageManager> {
         break;
       case "tier":
         return Tuple2(TIER_TITLE, TIER_URL);
+        break;
+      case "isolation_note":
+        return Tuple2(ISOLATION_NOTE_TITLE, ISOLATION_NOTE_URL);
         break;
     }
     return Tuple2("", "");

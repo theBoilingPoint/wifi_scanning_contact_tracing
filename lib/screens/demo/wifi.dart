@@ -1,8 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
-import 'package:wifi_scanning_flutter/models/customised_user.dart';
+import 'package:wifi_scanning_flutter/data/user_preference.dart';
 import 'package:wifi_scanning_flutter/screens/demo/widgets/cards.dart';
 
 class WifiScanPage extends StatefulWidget {
@@ -31,18 +30,20 @@ class _WifiScanPageState extends State<WifiScanPage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<CustomisedUser>(context);
     final Color kingsBlue = HexColor('#0a2d50');
 
-    void changeUserState(bool hasMatch) {
-      user.hasBeenContacted = hasMatch;
+    Future<void> changeUserState(bool hasMatch) async {
+      await UserPreference.setContactedState(hasMatch);
+      if(hasMatch && UserPreference.getIsolationDue() == ""){
+        await UserPreference.setIsolationDue(DateTime.now().add(Duration(days: 10)).toString());
+      }
     }
 
     CardsCreator cardsCreator =
         CardsCreator(changeUserState, widget.notifyParent);
 
     List<Widget> _widgetOptions =
-        createBottomNavigatorBarWidgets(context, cardsCreator, user.uid);
+        createBottomNavigatorBarWidgets(context, cardsCreator, UserPreference.getUsername());
 
     return Scaffold(
       appBar: AppBar(
