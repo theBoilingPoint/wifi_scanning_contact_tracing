@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wifi_scanning_flutter/data/user_preference.dart';
+import 'package:wifi_scanning_flutter/services/user_preference.dart';
 import 'package:wifi_scanning_flutter/models/customised_user.dart';
 import 'package:wifi_scanning_flutter/screens/wrapper.dart';
 import 'package:wifi_scanning_flutter/services/auth.dart';

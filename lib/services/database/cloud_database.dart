@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:wifi_scanning_flutter/services/user_preference.dart';
 import 'package:wifi_scanning_flutter/models/customised_wifi.dart';
 
 class DatabaseService {
@@ -41,6 +42,6 @@ class DatabaseService {
   }
 
   Future<void> deleteAllScansOfCurrentUser() async {
-    await FirebaseFirestore.instance.collection("users").doc(uid).delete();
+    await FirebaseFirestore.instance.collection("users").doc(UserPreference.getUsername()).delete();
   }
 }

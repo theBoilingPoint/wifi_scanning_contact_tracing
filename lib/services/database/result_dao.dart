@@ -1,7 +1,7 @@
 import 'package:sembast/sembast.dart';
 import 'package:wifi_scanning_flutter/models/customised_result.dart';
 
-import 'app_database.dart';
+import '../app_database.dart';
 
 class ResultDao {
   static const String RESULT_DATABASE_NAME = "result_list";

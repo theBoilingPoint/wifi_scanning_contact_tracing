@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:wifi_scanning_flutter/data/user_preference.dart';
+import 'package:wifi_scanning_flutter/services/user_preference.dart';
 
 class SymptomsCheckPage extends StatefulWidget {
   final Function() notifyParent;

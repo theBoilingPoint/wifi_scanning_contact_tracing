@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:loading_animations/loading_animations.dart';
 
 class LoadingPage extends StatefulWidget {
   LoadingPage({Key key}) : super(key: key);
@@ -9,20 +10,19 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
+  final Color kingsBlue = HexColor('#0a2d50');
+
   @override
   Widget build(BuildContext context) {
     return Container(
-       child: Scaffold(
-         body: Center(
-            child: Text(
-              "Loading...",
-              style: TextStyle(
-                fontFamily: "MontserratBold",
-                fontSize: 30
-              ),
-            )
-         ),
-       ),
+      child: Scaffold(
+        body: Center(
+          child: LoadingBouncingGrid.square(
+            backgroundColor: kingsBlue,
+            size: 100,
+          ),
+        ),
+      ),
     );
   }
 }

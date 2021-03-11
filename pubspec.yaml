@@ -39,12 +39,17 @@ dependencies:
   firebase_core_platform_interface: ^4.0.0
   firebase_messaging: ^9.0.0
   flutter_bloc: ^6.1.1
+  #flutter_local_notifications: ^4.0.1+2
+  #flutter_local_notifications_platform_interface: ^2.0.0+1
   hexcolor: ^1.0.6
   hive_flutter: ^1.0.0
+  http: ^0.13.0
   intl: ^0.17.0
+  loading_animations: ^2.2.0
   lottie: ^1.0.0
   page_transition: ^1.1.7+2
   path_provider: ^2.0.1
+  plugin_platform_interface: ^2.0.0
   provider: ^4.3.2+2
   sembast: ^2.4.8+1
   shared_preferences: ^2.0.3

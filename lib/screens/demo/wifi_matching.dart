@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
-import 'package:wifi_scanning_flutter/data/wifi_dao.dart';
+import 'package:wifi_scanning_flutter/services/database/wifi_dao.dart';
 import 'package:wifi_scanning_flutter/models/customised_wifi.dart';
-import 'package:wifi_scanning_flutter/services/cloud_database.dart';
+import 'package:wifi_scanning_flutter/services/database/cloud_database.dart';
 
 class WifiMatching {
   WifiDao wifiDao = WifiDao();

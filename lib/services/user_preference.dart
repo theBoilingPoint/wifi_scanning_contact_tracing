@@ -49,7 +49,7 @@ class UserPreference {
   }
 
   static bool getHasCough() {
-    bool cough = _preferences.getBool("coughState");;
+    bool cough = _preferences.getBool("coughState");
     return cough == null ? false : cough;
   }
 

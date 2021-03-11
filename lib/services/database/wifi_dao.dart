@@ -1,5 +1,5 @@
 import 'package:sembast/sembast.dart';
-import 'package:wifi_scanning_flutter/data/app_database.dart';
+import 'package:wifi_scanning_flutter/services/app_database.dart';
 import 'package:wifi_scanning_flutter/models/customised_wifi.dart';
 
 class WifiDao {
