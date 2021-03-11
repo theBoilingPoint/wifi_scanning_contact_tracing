@@ -236,21 +236,28 @@ class MainPageManager {
   MainPageManager(this.context, this.refresh, this.resetUserStates);
 
   Widget getMainPage() {
-    if (UserPreference.getInfectionState()) {
-      return InfectedWidgetLayout(refresh)
-          .getWidgetWhenInfected(context, getRemainingTime());
-    } else if (UserPreference.getHasFever() ||
+    Duration remainingIsolationTime = getRemainingTime();
+  
+    if(remainingIsolationTime != Duration.zero){
+      if (UserPreference.getInfectionState()) {
+        return InfectedWidgetLayout(refresh)
+          .getWidgetWhenInfected(context, remainingIsolationTime);
+      } 
+      else if (UserPreference.getHasFever() ||
         UserPreference.getHasCough() ||
         UserPreference.getHasSenseLoss()) {
-      return SymptomsWidgetLayout(this.refresh)
-          .getWidgetWhenGotSymptoms(context, getRemainingTime());
-    } else if (UserPreference.getContactedState()) {
-      return ContactWidgetLayout(this.refresh)
-          .getWidgetWhenContacted(context, getRemainingTime());
-    } else {
+        return SymptomsWidgetLayout(this.refresh)
+          .getWidgetWhenGotSymptoms(context, remainingIsolationTime);
+    } 
+      else if (UserPreference.getContactedState()) {
+        return ContactWidgetLayout(this.refresh)
+          .getWidgetWhenContacted(context, remainingIsolationTime);
+      } 
+    } 
+    else {
       resetUserStates();
-      return HealthyWidgetLayout().getWidgetWhenHealthy(context);
     }
+    return HealthyWidgetLayout().getWidgetWhenHealthy(context);
   }
 
   //get the remaining time for the countdown display
@@ -263,8 +270,8 @@ class MainPageManager {
         return dueTime.difference(curTime);
       }
     }
-    //Can't be Duration.zero because otherwise the main page
-    //won't refresh
-    return Duration(seconds: 1);
+    //if when user gets back to the app, it's gone pass
+    //the isolation due date
+    return Duration.zero;
   }
 }
