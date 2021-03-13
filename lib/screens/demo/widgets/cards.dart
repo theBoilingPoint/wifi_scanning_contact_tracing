@@ -102,9 +102,8 @@ class CardsCreator {
                               constrained: false,
                               child: DataTable(
                                   columns: [
-                                    DataColumn(label: Text('similarity')),
-                                    DataColumn(
-                                        label: Text('similarityThreshold')),
+                                    DataColumn(label: Text('similarity'),),
+                                    DataColumn(label: Text('similarityThreshold')),
                                     DataColumn(label: Text('filterPercentage')),
                                     DataColumn(label: Text('prediction')),
                                     DataColumn(label: Text('truth')),

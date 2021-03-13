@@ -17,7 +17,7 @@ class _LoadingPageState extends State<LoadingPage> {
     return Container(
       child: Scaffold(
         body: Center(
-          child: LoadingBouncingGrid.square(
+          child: LoadingJumpingLine.circle(
             backgroundColor: kingsBlue,
             size: 100,
           ),

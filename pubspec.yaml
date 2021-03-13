@@ -39,8 +39,7 @@ dependencies:
   firebase_core_platform_interface: ^4.0.0
   firebase_messaging: ^9.0.0
   flutter_bloc: ^6.1.1
-  #flutter_local_notifications: ^4.0.1+2
-  #flutter_local_notifications_platform_interface: ^2.0.0+1
+  flutter_launcher_icons: ^0.9.0
   hexcolor: ^1.0.6
   hive_flutter: ^1.0.0
   http: ^0.13.0
@@ -64,6 +63,11 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^1.11.1
   hive_generator: ^1.0.0
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/launcher_icons/heart-health-64.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

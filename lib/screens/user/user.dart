@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:wifi_scanning_flutter/screens/loading.dart';
 import 'package:wifi_scanning_flutter/services/user_preference.dart';
 import 'package:wifi_scanning_flutter/services/database/wifi_dao.dart';
 import 'package:wifi_scanning_flutter/models/customised_wifi.dart';
@@ -146,9 +147,20 @@ class UserHomePage extends State<User> {
               ]),
         ),
       ),
-      body: Center(
-        child: MainPageManager(context, refresh, clearSickStates).getMainPage(),
+      body: FutureBuilder(
+        future: MainPageManager(context, refresh, clearSickStates).getMainPage(),
+        builder: (context, AsyncSnapshot<Widget> snapshot){
+          if(snapshot.connectionState == ConnectionState.done) {
+            return Center(
+              child: snapshot.data,
+            );
+          }
+          else {
+            return LoadingPage();
+          }
+        },
       ),
+      
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.priority_high),
         backgroundColor: kingsBlue,
@@ -235,7 +247,7 @@ class MainPageManager {
   Function resetUserStates;
   MainPageManager(this.context, this.refresh, this.resetUserStates);
 
-  Widget getMainPage() {
+  Future<Widget> getMainPage() async {
     Duration remainingIsolationTime = getRemainingTime();
   
     if(remainingIsolationTime != Duration.zero){
@@ -255,7 +267,7 @@ class MainPageManager {
       } 
     } 
     else {
-      resetUserStates();
+      await resetUserStates();
     }
     return HealthyWidgetLayout().getWidgetWhenHealthy(context);
   }
