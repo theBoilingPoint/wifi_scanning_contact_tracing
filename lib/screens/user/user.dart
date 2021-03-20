@@ -104,7 +104,7 @@ class UserHomePage extends State<User> {
                 ListTile(
                   leading: Icon(CupertinoIcons.map_pin_ellipse),
                   title: Text(
-                    "Check Heatmap",
+                    "Check Heat Map",
                     style:
                         TextStyle(fontFamily: "MontserratBold", fontSize: 20),
                   ),
