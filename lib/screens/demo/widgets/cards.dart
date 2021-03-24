@@ -42,7 +42,7 @@ class CardsCreator {
       StepCard(
         stepNum: 2,
         description:
-            """For each scan in the local database, see if there is a scan from the cloud that is made within 15 minutes. Get 2 sets of matching, 1 for local and 1 for cloud.""",
+            """For each scan in the local database, see if there is a scan from the cloud that is made within 5 minutes. Get 2 sets of matching, 1 for local and 1 for cloud.""",
         buttons: [],
       ),
       StepCard(
@@ -147,7 +147,7 @@ class CardsCreator {
     List<StepCard> stepCards = [
       StepCard(
         stepNum: 1,
-        description: "Scan wifi signals for 3 times per 15 minutes.",
+        description: "Scan wifi signals every 5 minutes; hence there will be 3 scans per 15 minutes.",
         buttons: [
           ElevatedButton(
             child: Text("Scan Wifi"),
@@ -205,7 +205,7 @@ class CardsCreator {
       ),
       StepCard(
         stepNum: 2,
-        description: "Store each scan in the local database",
+        description: "Each scan is stored in the local database.",
         buttons: [
           ElevatedButton(
             child: Text("Store Current Scan"),
@@ -276,7 +276,7 @@ class CardsCreator {
       StepCard(
         stepNum: 3,
         description:
-            "Once the user is tested postive, the scans in the local database within 7 days will be uploaded to the cloud database.",
+            "Part of the scans from the local database will be uploaded to the cloud depending on the user's current state.",
         buttons: [
           ElevatedButton(
             child: Text("Upload to Cloud"),

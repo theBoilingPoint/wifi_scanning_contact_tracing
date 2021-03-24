@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:wifi_scanning_flutter/screens/demo/wifi_algorithm_page.dart';
 import 'package:wifi_scanning_flutter/screens/loading.dart';
+import 'package:wifi_scanning_flutter/screens/user/symptoms_date_page.dart';
+import 'package:wifi_scanning_flutter/screens/user/widgets/wifi_background_manager.dart';
 import 'package:wifi_scanning_flutter/services/user_preference.dart';
 import 'package:wifi_scanning_flutter/services/database/wifi_dao.dart';
 import 'package:wifi_scanning_flutter/models/customised_wifi.dart';
-import 'package:wifi_scanning_flutter/screens/demo/wifi.dart';
 import 'package:wifi_scanning_flutter/screens/user/common_questions.dart';
 import 'package:wifi_scanning_flutter/screens/user/symptom.dart';
 import 'package:wifi_scanning_flutter/screens/user/webpageManager.dart';
@@ -28,10 +32,23 @@ class UserHomePage extends State<User> {
   final Color kingsBlue = HexColor('#0a2d50');
   final AuthService _auth = AuthService();
   WifiDao wifiDao = WifiDao();
+  //WiFi background activity manager singleton instance
+  WiFiBackgroundActivityManager wiFiBackgroundActivityManager;
+  bool isScanning;
+  String userId = UserPreference.getUsername();
 
   @override
   void initState() {
     super.initState();
+    wiFiBackgroundActivityManager = WiFiBackgroundActivityManager(userId, refresh);
+    initialiseWiFiBackgroundTimer();
+  }
+
+  Future<void> initialiseWiFiBackgroundTimer() async {
+    isScanning = UserPreference.getWiFiBackgroundActivityState();
+    if (isScanning) {
+      await wiFiBackgroundActivityManager.startTimer();
+    }
   }
 
   @override
@@ -56,17 +73,22 @@ class UserHomePage extends State<User> {
                 ListTile(
                   leading: Icon(CupertinoIcons.wifi),
                   title: Text(
-                    "Scan WiFi",
+                    "WiFi Tracing",
                     style:
                         TextStyle(fontFamily: "MontserratBold", fontSize: 20),
                   ),
                   onTap: () {
+                    isScanning = UserPreference.getWiFiBackgroundActivityState();
                     Navigator.push(
                         context,
                         new MaterialPageRoute(
-                            builder: (context) => WifiScanPage(
-                                  notifyParent: refresh,
-                                )));
+                            builder: (context) => WiFiBackgroundActivity(
+                              notifyParent: refresh, 
+                              isScanning: isScanning,
+                              wiFiBackgroundActivityManager: wiFiBackgroundActivityManager
+                        )
+                      )
+                    );
                   },
                 ),
                 ListTile(
@@ -77,12 +99,26 @@ class UserHomePage extends State<User> {
                         TextStyle(fontFamily: "MontserratBold", fontSize: 20),
                   ),
                   onTap: () async {
-                    Navigator.push(
+                    //if the user has any symptoms, lead to the symptoms page
+                    //else lead to the date checker page
+                    if(UserPreference.getHasFever() || UserPreference.getHasCough() || UserPreference.getHasSenseLoss()){
+                      Navigator.push(
                         context,
                         new MaterialPageRoute(
                             builder: (context) => new SymptomsCheckPage(
-                                  notifyParent: refresh,
-                                )));
+                              notifyParent: refresh,
+                            )
+                        )
+                      );
+                    }
+                    else {
+                       Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => SymptomsDatePicker(notifyParent: refresh,)
+                        )
+                      );
+                    }
                   },
                 ),
                 ListTile(
@@ -139,6 +175,8 @@ class UserHomePage extends State<User> {
                         TextStyle(fontFamily: "MontserratBold", fontSize: 20),
                   ),
                   onTap: () async {
+                    wiFiBackgroundActivityManager.cancelTimer();
+                    await wifiDao.deleteAll();
                     await _auth.signOut();
                     //Go back to sign in page by removing the top elements of the page stack
                     Navigator.popUntil(context, ModalRoute.withName("/"));
@@ -160,7 +198,6 @@ class UserHomePage extends State<User> {
           }
         },
       ),
-      
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.priority_high),
         backgroundColor: kingsBlue,
@@ -178,6 +215,9 @@ class UserHomePage extends State<User> {
   }
 
   Future<void> clearSickStates() async {
+    //the matching times in UserPreference is not included as 
+    //the user's sick state because it is independent
+    //of the user and should be handled in the background activity
     await UserPreference.setContactedState(false);
     await UserPreference.setInfectionState(false);
     await UserPreference.setHasFever(false);
@@ -217,7 +257,6 @@ class UserHomePage extends State<User> {
       await UserPreference.setIsolationDue(
           DateTime.now().add(Duration(days: 10)).toString());
     }
-
     checkInfectionData();
     refresh();
   }
@@ -244,12 +283,12 @@ class UserHomePage extends State<User> {
 class MainPageManager {
   BuildContext context;
   Function refresh;
-  Function resetUserStates;
-  MainPageManager(this.context, this.refresh, this.resetUserStates);
+  Function resetUserState;
+  MainPageManager(this.context, this.refresh, this.resetUserState);
 
   Future<Widget> getMainPage() async {
     Duration remainingIsolationTime = getRemainingTime();
-  
+
     if(remainingIsolationTime != Duration.zero){
       if (UserPreference.getInfectionState()) {
         return InfectedWidgetLayout(refresh)
@@ -265,10 +304,9 @@ class MainPageManager {
         return ContactWidgetLayout(this.refresh)
           .getWidgetWhenContacted(context, remainingIsolationTime);
       } 
-    } 
-    else {
-      await resetUserStates();
     }
+    //when the countdown is over, the user state should be cleared
+    resetUserState();
     return HealthyWidgetLayout().getWidgetWhenHealthy(context);
   }
 

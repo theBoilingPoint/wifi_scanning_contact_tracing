@@ -70,4 +70,23 @@ class UserPreference {
     String isolation = _preferences.getString("isolationDue");
     return  isolation == null ? "" : isolation;
   }
+
+  static Future setMatchingTimes(int matchingTimes) async {
+    await _preferences.setInt("matchingTimes", matchingTimes);
+  }
+
+  static int getMatchingTimes() {
+    int matchingTimes = _preferences.getInt("matchingTimes");
+    return matchingTimes == null ? 0 : matchingTimes;
+  }
+
+  static Future setWiFiBackgroundActivityState(bool isScanning) async {
+    await _preferences.setBool("isScanning", isScanning);
+  }
+
+  static bool getWiFiBackgroundActivityState() {
+    bool isScanning = _preferences.getBool("isScanning");
+    //default the scanning state is true
+    return isScanning == null ? true : isScanning;
+  }
 }

@@ -31,12 +31,6 @@ class WifiMatching {
         }
       });
     });
-    print("Matched Local List: ");
-    matchedLocalWifiList.forEach((element) => print(
-        "dateTime: ${element.dateTime} BSSID: ${element.bssid} RSSI: ${element.rssi}"));
-    print("Matched Cloud List: ");
-    matchedCloudWifiList.forEach((element) => print(
-        "dateTime: ${element.dateTime} BSSID: ${element.bssid} RSSI: ${element.rssi}"));
 
     //Group the lists by timestamps
     Map<String, List<CustomisedWifi>> groupedCloudWifiList = groupBy(
@@ -50,15 +44,12 @@ class WifiMatching {
     bool hasMatch = false;
     groupedCloudWifiList.entries.forEach((cloudScan) {
       DateTime cloudScanKey = DateTime.parse(cloudScan.key);
-      print("Cur cloud timestamp: " + cloudScanKey.toString());
       groupedLocalWifiList.entries.forEach((localScan) {
         if (cloudScanKey.difference(DateTime.parse(localScan.key)) <=
             timeSpan) {
-          print("Found a matched timestamp");
           similarity = computeSimilarityBetweenLists(
                   cloudScan.value, localScan.value, filterPercentage);
           if (similarity >= similarityThreshold) {
-            print("Similarity accepted");
             hasMatch = true;
           }
         }
@@ -72,34 +63,24 @@ class WifiMatching {
       List<CustomisedWifi> la, List<CustomisedWifi> lb, filterPercentage) {
     List<String> filteredLstA = filterWifiByRssi(la, filterPercentage).map((e) => e.bssid).toList();
     List<String> filteredLstB = filterWifiByRssi(lb, filterPercentage).map((e) => e.bssid).toList();
-    print("Filtered List a");
-    filteredLstA.forEach((element) => print(
-        "BSSID: $element"));
-    print("Filtered List b");
-    filteredLstB.forEach((element) => print(
-        "BSSID: $element"));
-    
+
     double similarity = 0;
     if (filteredLstA.length <= filteredLstB.length) {
       double increment = 1 / filteredLstA.length;
-      print("increment: ${increment.toString()}");
       filteredLstA.forEach((element) {
         if (filteredLstB.contains(element)) {
           similarity += increment;
-          print("cur similarity: ${similarity.toString()}");
         }
       });
     } else {
       double increment = 1 / filteredLstB.length;
-      print("increment: ${increment.toString()}");
       filteredLstB.forEach((element) {
         if (filteredLstA.contains(element)) {
           similarity += increment;
-          print("cur similarity: ${similarity.toString()}");
         }
       });
     }
-    print("Similarity: ${similarity.toString()}");
+
     return similarity;
   }
 

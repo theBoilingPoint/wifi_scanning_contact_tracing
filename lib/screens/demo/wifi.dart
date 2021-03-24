@@ -48,7 +48,7 @@ class _WifiScanPageState extends State<WifiScanPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "WiFi List",
+          "WiFi Matching Steps",
           style: TextStyle(
               fontFamily: "MontserratRegular", fontWeight: FontWeight.w600),
         ),
