@@ -176,7 +176,11 @@ class UserHomePage extends State<User> {
                   ),
                   onTap: () async {
                     wiFiBackgroundActivityManager.cancelTimer();
+                    //if an account signs out, all data attached to this account should be 
+                    //deleted or reset
                     await wifiDao.deleteAll();
+                    await clearSickStates();
+                    await UserPreference.setMatchingTimes(0);
                     await _auth.signOut();
                     //Go back to sign in page by removing the top elements of the page stack
                     Navigator.popUntil(context, ModalRoute.withName("/"));
