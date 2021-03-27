@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:wifi_scanning_flutter/screens/user/symptom.dart';
+import 'package:wifi_scanning_flutter/screens/user/widgets/symptom.dart';
 
 class SymptomsDatePicker extends StatefulWidget {
   final Function notifyParent;

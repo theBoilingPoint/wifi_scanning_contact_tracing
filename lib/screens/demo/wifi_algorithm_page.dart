@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:wifi_scanning_flutter/screens/demo/db_operations.dart';
 import 'package:wifi_scanning_flutter/screens/demo/wifi.dart';
 import 'package:wifi_scanning_flutter/screens/demo/wifi_matching.dart';
-import 'package:wifi_scanning_flutter/screens/user/widgets/wifi_background_manager.dart';
+import 'package:wifi_scanning_flutter/screens/user/wifi_background_manager.dart';
 import 'package:wifi_scanning_flutter/services/user_preference.dart';
 import 'package:loading_animations/loading_animations.dart';
 
