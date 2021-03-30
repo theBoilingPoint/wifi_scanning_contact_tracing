@@ -6,7 +6,7 @@ import 'package:wifi_scanning_flutter/models/customised_result.dart';
 import 'package:wifi_scanning_flutter/models/customised_wifi.dart';
 import 'package:wifi_scanning_flutter/screens/demo/db_operations.dart';
 import 'package:wifi_scanning_flutter/screens/demo/widgets/dialogs.dart';
-import 'package:wifi_scanning_flutter/screens/demo/wifi_matching.dart';
+import 'package:wifi_scanning_flutter/screens/demo/widgets/wifi_matching.dart';
 
 import 'step_card.dart';
 

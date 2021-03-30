@@ -3,29 +3,25 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:lottie/lottie.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 import 'package:wifi_scanning_flutter/services/user_preference.dart';
-import 'package:wifi_scanning_flutter/screens/user/webpageManager.dart';
+import 'package:wifi_scanning_flutter/screens/user/widgets/webpageManager.dart';
 
-class SymptomsWidgetLayout {
+class ContactWidgetLayout {
   final Color kingsBlue = HexColor('#0a2d50');
   final Function refreshMainPage;
+  ContactWidgetLayout(this.refreshMainPage);
 
-  SymptomsWidgetLayout(this.refreshMainPage);
-
-  Widget getWidgetWhenGotSymptoms(BuildContext context, Duration duration) {
+  Widget getWidgetWhenContacted(BuildContext context, Duration duration) {
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Lottie.asset(
-            "assets/lottie/corona-virus-sick.json",
+            "assets/lottie/covid-contact.json",
             height: 300,
           ),
-          SizedBox(
-            height: 20,
-          ),
           Text(
-            "You are likely to be infected",
-            style: TextStyle(fontFamily: "MontserratRegular", fontSize: 25),
+            "You have been contacted",
+            style: TextStyle(fontFamily: "MontserratRegular", fontSize: 27),
           ),
           SizedBox(
             height: 10,
@@ -35,7 +31,7 @@ class SymptomsWidgetLayout {
             style: TextStyle(
                 fontFamily: "MontserratRegular",
                 fontStyle: FontStyle.italic,
-                fontSize: 23),
+                fontSize: 25),
           ),
           SlideCountdownClock(
             duration: duration,
@@ -47,9 +43,7 @@ class SymptomsWidgetLayout {
               fontWeight: FontWeight.bold,
             ),
             onDone: () async {
-              await UserPreference.setHasCough(false);
-              await UserPreference.setHasFever(false);
-              await UserPreference.setHasSenseLoss(false);
+              await UserPreference.setContactedState(false);
               refreshMainPage();
             },
           ),

@@ -37,7 +37,7 @@ class DatabaseOperations {
       newGroupedWifiList[key] = newValue;
     });
 
-    await DatabaseService(uid: userId).updateUserData(newGroupedWifiList);
+    await CloudDatabase(uid: userId).updateUserData(newGroupedWifiList);
   }
 
   Future<void> insertResultToDb(CustomisedResult result) async {
@@ -61,6 +61,6 @@ class DatabaseOperations {
   }
 
   Future<void> clearCloudDatabase(String userId) async {
-    await DatabaseService(uid: userId).deleteAllScansOfCurrentUser();
+    await CloudDatabase(uid: userId).deleteAllScansOfCurrentUser();
   }
 }

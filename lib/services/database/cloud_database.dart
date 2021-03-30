@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wifi_scanning_flutter/services/user_preference.dart';
 import 'package:wifi_scanning_flutter/models/customised_wifi.dart';
 
-class DatabaseService {
+class CloudDatabase {
   final String uid;
   //class constructor
-  DatabaseService({this.uid});
+  CloudDatabase({this.uid});
 
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');

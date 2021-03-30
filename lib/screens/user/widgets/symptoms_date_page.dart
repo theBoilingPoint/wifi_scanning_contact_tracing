@@ -31,7 +31,7 @@ class _SymptomsDatePickerState extends State<SymptomsDatePicker> {
               padding: EdgeInsets.symmetric(horizontal: 50),
               children: [
                 Text(
-                  "If you are feeling uncomfortable at the moment, can you remember when the symptom occured?",
+                  "If you are feeling uncomfortable at the moment, can you remember when the symptom(s) occurred?",
                   style: TextStyle(
                     fontFamily: "MontserratRegular", 
                     fontSize: 30

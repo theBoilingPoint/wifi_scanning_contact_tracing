@@ -15,7 +15,7 @@ class WifiMatching {
     List<CustomisedWifi> rawLocalWifiList =
         await wifiDao.getAllSortedBy("dateTime");
     List<CustomisedWifi> rawCloudWifiList =
-        await DatabaseService(uid: uid).getAllScansFromCloudMadeByOtherUsers();
+        await CloudDatabase(uid: uid).getAllScansFromCloudMadeByOtherUsers();
 
     //Find all data in the cloud and local dbs that match each other's timestamp
     //Datatype here is set because we don't my repetitive data

@@ -6,18 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:wifi_scanning_flutter/screens/demo/wifi_algorithm_page.dart';
 import 'package:wifi_scanning_flutter/screens/loading.dart';
-import 'package:wifi_scanning_flutter/screens/user/symptoms_date_page.dart';
+import 'package:wifi_scanning_flutter/screens/user/widgets/symptoms_date_page.dart';
 import 'package:wifi_scanning_flutter/screens/user/wifi_background_manager.dart';
 import 'package:wifi_scanning_flutter/services/user_preference.dart';
 import 'package:wifi_scanning_flutter/services/database/wifi_dao.dart';
 import 'package:wifi_scanning_flutter/models/customised_wifi.dart';
-import 'package:wifi_scanning_flutter/screens/user/common_questions.dart';
+import 'package:wifi_scanning_flutter/screens/user/widgets/common_questions.dart';
 import 'package:wifi_scanning_flutter/screens/user/widgets/symptom.dart';
-import 'package:wifi_scanning_flutter/screens/user/webpageManager.dart';
-import 'package:wifi_scanning_flutter/screens/user/widgets/contact_widget.dart';
-import 'package:wifi_scanning_flutter/screens/user/widgets/healthy_widget.dart';
+import 'package:wifi_scanning_flutter/screens/user/widgets/webpageManager.dart';
+import 'package:wifi_scanning_flutter/screens/user/contact_widget.dart';
+import 'package:wifi_scanning_flutter/screens/user/healthy_widget.dart';
 import 'package:wifi_scanning_flutter/screens/user/widgets/infected_widget.dart';
-import 'package:wifi_scanning_flutter/screens/user/widgets/symptoms_widget.dart';
+import 'package:wifi_scanning_flutter/screens/user/symptoms_widget.dart';
 import 'package:wifi_scanning_flutter/services/auth.dart';
 import 'package:wifi_scanning_flutter/services/database/cloud_database.dart';
 
@@ -230,21 +230,6 @@ class UserHomePage extends State<User> {
     await UserPreference.setIsolationDue("");
   }
 
-  Future<void> checkInfectionData() async {
-    if (UserPreference.getInfectionState()) {
-      storeScansWithin7DaysInCloudDatabase();
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Scans within 7 days have been uploaded to cloud."),
-      ));
-    } else {
-      await DatabaseService(uid: UserPreference.getUsername())
-          .deleteAllScansOfCurrentUser();
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Scans in the cloud have been deleted."),
-      ));
-    }
-  }
-
   Future<void> toggleInfectionState() async {
     await UserPreference.setInfectionState(!UserPreference.getInfectionState());
     //if the user if not infected after toggle, we need to set the isolation due
@@ -261,8 +246,23 @@ class UserHomePage extends State<User> {
       await UserPreference.setIsolationDue(
           DateTime.now().add(Duration(days: 10)).toString());
     }
-    checkInfectionData();
+    handleCloudInfectionData();
     refresh();
+  }
+
+  Future<void> handleCloudInfectionData() async {
+    if (UserPreference.getInfectionState()) {
+      storeScansWithin7DaysInCloudDatabase();
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Scans within 7 days have been uploaded to cloud."),
+      ));
+    } else {
+      await CloudDatabase(uid: UserPreference.getUsername())
+          .deleteAllScansOfCurrentUser();
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Scans in the cloud have been deleted."),
+      ));
+    }
   }
 
   Future<void> storeScansWithin7DaysInCloudDatabase() async {
@@ -279,7 +279,7 @@ class UserHomePage extends State<User> {
       newGroupedWifiList[key] = newValue;
     });
 
-    await DatabaseService(uid: UserPreference.getUsername())
+    await CloudDatabase(uid: UserPreference.getUsername())
         .updateUserData(newGroupedWifiList);
   }
 }

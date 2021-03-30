@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lottie/lottie.dart';
-import 'package:wifi_scanning_flutter/screens/user/webpageManager.dart';
+import 'package:wifi_scanning_flutter/screens/user/widgets/webpageManager.dart';
 
 class HealthyWidgetLayout {
   final Color kingsBlue = HexColor('#0a2d50');

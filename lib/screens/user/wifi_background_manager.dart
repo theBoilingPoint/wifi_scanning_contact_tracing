@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:wifi/wifi.dart';
 import 'package:wifi_scanning_flutter/screens/demo/db_operations.dart';
-import 'package:wifi_scanning_flutter/screens/demo/wifi_matching.dart';
+import 'package:wifi_scanning_flutter/screens/demo/widgets/wifi_matching.dart';
 import 'package:wifi_scanning_flutter/services/user_preference.dart';
 
 class WiFiBackgroundActivityManager {

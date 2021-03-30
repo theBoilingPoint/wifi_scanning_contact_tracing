@@ -21,7 +21,7 @@ class _WebpageManagerState extends State<WebpageManager> {
 
   final String TIER_TITLE = "Local Tier";
   final String TIER_URL =
-      "https://www.gov.uk/guidance/national-lockdown-stay-at-home";
+      "https://www.gov.uk/guidance/covid-19-coronavirus-restrictions-what-you-can-and-cannot-do";
   final String HEATMAP_TITLE = "Covid-19 Heatmap UK";
   final String HEATMAP_URL = "https://www.covidlive.co.uk/";
   final String BOOKING_TITLE = "Covid-19 Test Booking";

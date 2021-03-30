@@ -3,25 +3,29 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:lottie/lottie.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 import 'package:wifi_scanning_flutter/services/user_preference.dart';
-import 'package:wifi_scanning_flutter/screens/user/webpageManager.dart';
+import 'package:wifi_scanning_flutter/screens/user/widgets/webpageManager.dart';
 
-class ContactWidgetLayout {
+class SymptomsWidgetLayout {
   final Color kingsBlue = HexColor('#0a2d50');
   final Function refreshMainPage;
-  ContactWidgetLayout(this.refreshMainPage);
 
-  Widget getWidgetWhenContacted(BuildContext context, Duration duration) {
+  SymptomsWidgetLayout(this.refreshMainPage);
+
+  Widget getWidgetWhenGotSymptoms(BuildContext context, Duration duration) {
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Lottie.asset(
-            "assets/lottie/covid-contact.json",
+            "assets/lottie/corona-virus-sick.json",
             height: 300,
           ),
+          SizedBox(
+            height: 20,
+          ),
           Text(
-            "You have been contacted",
-            style: TextStyle(fontFamily: "MontserratRegular", fontSize: 27),
+            "You are likely to be infected",
+            style: TextStyle(fontFamily: "MontserratRegular", fontSize: 25),
           ),
           SizedBox(
             height: 10,
@@ -31,7 +35,7 @@ class ContactWidgetLayout {
             style: TextStyle(
                 fontFamily: "MontserratRegular",
                 fontStyle: FontStyle.italic,
-                fontSize: 25),
+                fontSize: 23),
           ),
           SlideCountdownClock(
             duration: duration,
@@ -43,7 +47,9 @@ class ContactWidgetLayout {
               fontWeight: FontWeight.bold,
             ),
             onDone: () async {
-              await UserPreference.setContactedState(false);
+              await UserPreference.setHasCough(false);
+              await UserPreference.setHasFever(false);
+              await UserPreference.setHasSenseLoss(false);
               refreshMainPage();
             },
           ),
