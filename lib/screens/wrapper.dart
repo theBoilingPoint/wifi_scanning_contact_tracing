@@ -10,10 +10,11 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<CustomisedUser>(context);
-
+    
     if (user == null) {
       return SignIn();
     } else {
+      print("Current User ID: " + user.uid);
       return FutureBuilder(
           future: UserPreference.setUsername(user.uid),
           builder: (context, snapshot) {

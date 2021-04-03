@@ -238,6 +238,9 @@ class UserHomePage extends State<User> {
       //The reason why we need to specifically set the all sick states back to none
       //is that once the user is tested negative then he won't have any issues any more
       await clearSickStates();
+      //When the user is healthy, he/she is facing the risk of being contacted again.
+      //Hence the matching algorithm fields need to be set back to default.
+      await UserPreference.setMatchingTimes(0);
     }
     //else if the user if infected after toggle and he's not in an isolation yet
     //set the timer for 10 days

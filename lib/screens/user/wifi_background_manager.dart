@@ -15,7 +15,7 @@ class WiFiBackgroundActivityManager {
   String userId;
   double filterPercentage = 0.5;
   double similarityThreshold = 0.0;
-  Duration matchInterval = Duration(minutes: 5);
+  Duration matchInterval = Duration(seconds: 5);
 
   //Singleton instance
   static final WiFiBackgroundActivityManager _singleton = WiFiBackgroundActivityManager._();
@@ -31,17 +31,18 @@ class WiFiBackgroundActivityManager {
 
   Future<void> startTimer() async {
     //Since the timer function will not run immediately, findMatch needs to be called explicitly
-    await findMatch();
+    //await findMatch();
     if(timer == null) {
       timer = Timer.periodic(matchInterval, (timer) async {
-        print("Scanning...");
+        Stopwatch stopwatch = new Stopwatch()..start();
+        //print("Scanning...");
         await findMatch();
         int totalMatchingTimes = UserPreference.getMatchingTimes();
         if(totalMatchingTimes >= 3){
           //the isolation due only needs to be set once
           if(totalMatchingTimes == 3 && UserPreference.getIsolationDue() == ""){
             await UserPreference.setIsolationDue(DateTime.now().add(Duration(days: 10)).toString());
-            print("Isolation Due is set");
+            //print("Isolation Due is set");
           }
           //When the user has 3 or more consecutive matching, the contacted state is set to true
           await UserPreference.setContactedState(true);
@@ -50,6 +51,7 @@ class WiFiBackgroundActivityManager {
           await UserPreference.setContactedState(false);
         }
         refresh();
+        print('The timer executed in ${stopwatch.elapsed}');
       });
     }
   }
@@ -64,21 +66,23 @@ class WiFiBackgroundActivityManager {
     }
   }
   
+  int tmp = 0;
   Future<void> findMatch() async {
     List<WifiResult> wifiScans = await databaseOperations.scanWifi();
     databaseOperations.storeScansInLocalDatabase(wifiScans);
     bool hasMatch = await matcher.matchFingerprints(userId, matchInterval, filterPercentage, similarityThreshold);
     if(hasMatch) {
-      int totalMatchingTime = UserPreference.getMatchingTimes();
+      int totalMatchingTime = UserPreference.getMatchingTimes() + 1;
+      await UserPreference.setMatchingTimes(totalMatchingTime);
       print("Total number of contact matching: " + totalMatchingTime.toString());
-      await UserPreference.setMatchingTimes(totalMatchingTime + 1);
     }
     //Only clear the total matching time (when there aren't consecutive matching) for a user who hasn't been contacted
     //Otherwise, it might accidentally remove the isolation countdown for the user who has been contacted 
     else if (!hasMatch && !UserPreference.getContactedState()){
-      int totalMatchingTime = 0;
-      await UserPreference.setMatchingTimes(totalMatchingTime);
-      print("Total number of contact matching is set to 0");
+      await UserPreference.setMatchingTimes(0);
+      tmp += 1;
+      print(tmp.toString());
+      //print("Total number of contact matching is set to 0");
     }
   }
 }
