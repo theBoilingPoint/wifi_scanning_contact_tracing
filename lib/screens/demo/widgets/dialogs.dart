@@ -25,7 +25,7 @@ class DialogsCreator {
                     ));
                     Navigator.of(context).pop();
                   },
-                  child: Text("Correct")),
+                  child: Text("Positive")),
               TextButton(
                   onPressed: () async {
                     await databaseOperations.insertResultToDb(
@@ -36,7 +36,7 @@ class DialogsCreator {
                     ));
                     Navigator.of(context).pop();
                   },
-                  child: Text("Wrong")),
+                  child: Text("Negative")),
             ],
           );
         });

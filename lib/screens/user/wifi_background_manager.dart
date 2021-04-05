@@ -13,9 +13,9 @@ class WiFiBackgroundActivityManager {
 
   //WiFi matching parameters
   String userId;
-  double filterPercentage = 0.5;
-  double similarityThreshold = 0.0;
-  Duration matchInterval = Duration(seconds: 5);
+  double filterPercentage = 0.84022877;
+  double similarityThreshold = 0.97232887;
+  Duration matchInterval = Duration(minutes: 5);
 
   //Singleton instance
   static final WiFiBackgroundActivityManager _singleton = WiFiBackgroundActivityManager._();
@@ -31,11 +31,10 @@ class WiFiBackgroundActivityManager {
 
   Future<void> startTimer() async {
     //Since the timer function will not run immediately, findMatch needs to be called explicitly
-    //await findMatch();
+    await findMatch();
     if(timer == null) {
       timer = Timer.periodic(matchInterval, (timer) async {
-        Stopwatch stopwatch = new Stopwatch()..start();
-        //print("Scanning...");
+        print("Scanning...");
         await findMatch();
         int totalMatchingTimes = UserPreference.getMatchingTimes();
         if(totalMatchingTimes >= 3){
@@ -51,7 +50,6 @@ class WiFiBackgroundActivityManager {
           await UserPreference.setContactedState(false);
         }
         refresh();
-        print('The timer executed in ${stopwatch.elapsed}');
       });
     }
   }
@@ -66,7 +64,6 @@ class WiFiBackgroundActivityManager {
     }
   }
   
-  int tmp = 0;
   Future<void> findMatch() async {
     List<WifiResult> wifiScans = await databaseOperations.scanWifi();
     databaseOperations.storeScansInLocalDatabase(wifiScans);
@@ -80,9 +77,7 @@ class WiFiBackgroundActivityManager {
     //Otherwise, it might accidentally remove the isolation countdown for the user who has been contacted 
     else if (!hasMatch && !UserPreference.getContactedState()){
       await UserPreference.setMatchingTimes(0);
-      tmp += 1;
-      print(tmp.toString());
-      //print("Total number of contact matching is set to 0");
+      print("Total number of contact matching is set to 0");
     }
   }
 }

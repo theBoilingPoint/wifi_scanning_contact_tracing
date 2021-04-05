@@ -41,22 +41,20 @@ class WifiMatching {
         (CustomisedWifi eachSignal) => eachSignal.dateTime);
     //Dart does not support non-local returns,
     //so returning from a callback won't break the loop. Dart forEach callback returns void.
-    bool hasMatch = false;
-    groupedCloudWifiList.entries.forEach((cloudScan) {
+    //bool hasMatch = false;
+    for(var cloudScan in groupedCloudWifiList.entries){
       DateTime cloudScanKey = DateTime.parse(cloudScan.key);
-      groupedLocalWifiList.entries.forEach((localScan) {
-        if (cloudScanKey.difference(DateTime.parse(localScan.key)) <=
-            timeSpan) {
-          similarity = computeSimilarityBetweenLists(
-                  cloudScan.value, localScan.value, filterPercentage);
+      for(var localScan in groupedLocalWifiList.entries){
+        if (cloudScanKey.difference(DateTime.parse(localScan.key)) <= timeSpan){
+          similarity = computeSimilarityBetweenLists(cloudScan.value, localScan.value, filterPercentage);
           if (similarity >= similarityThreshold) {
-            hasMatch = true;
+            return true;
           }
         }
-      });
-    });
+      }
+    }
 
-    return hasMatch;
+    return false;
   }
 
   double computeSimilarityBetweenLists(
