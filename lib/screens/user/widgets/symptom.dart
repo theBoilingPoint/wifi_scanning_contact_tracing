@@ -5,7 +5,8 @@ import 'package:wifi_scanning_flutter/services/user_preference.dart';
 class SymptomsCheckPage extends StatefulWidget {
   final Function() notifyParent;
   final DateTime symptomsAppearingDate;
-  SymptomsCheckPage({Key key, @required this.notifyParent, this.symptomsAppearingDate}) : super(key: key);
+  SymptomsCheckPage({Key key, @required this.notifyParent, this.symptomsAppearingDate}) 
+  : super(key: key);
 
   @override
   _SymptomsCheckPageState createState() => _SymptomsCheckPageState();
@@ -22,7 +23,8 @@ class _SymptomsCheckPageState extends State<SymptomsCheckPage> {
           UserPreference.setIsolationDue(DateTime.now().add(Duration(days: 10)).toString());
         }
         else {
-          UserPreference.setIsolationDue(widget.symptomsAppearingDate.add(Duration(days: 10)).toString());
+          UserPreference.setIsolationDue(widget.symptomsAppearingDate
+          .add(Duration(days: 10)).toString());
         }
       }
     }

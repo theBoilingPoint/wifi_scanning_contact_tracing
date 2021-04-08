@@ -6,9 +6,7 @@ import 'package:wifi_scanning_flutter/services/database/cloud_database.dart';
 class WifiMatching {
   WifiDao wifiDao = WifiDao();
   double similarity = 0;
-  /*
-  * @param timeSpan is the of type Duration
-  */
+  
   Future<bool> matchFingerprints(String uid, Duration timeSpan,
       double filterPercentage, double similarityThreshold) async {
     //Get raw data from cloud and local dbs5
@@ -46,7 +44,8 @@ class WifiMatching {
       DateTime cloudScanKey = DateTime.parse(cloudScan.key);
       for(var localScan in groupedLocalWifiList.entries){
         if (cloudScanKey.difference(DateTime.parse(localScan.key)) <= timeSpan){
-          similarity = computeSimilarityBetweenLists(cloudScan.value, localScan.value, filterPercentage);
+          similarity = computeSimilarityBetweenLists
+            (cloudScan.value, localScan.value, filterPercentage);
           if (similarity >= similarityThreshold) {
             return true;
           }
@@ -59,8 +58,10 @@ class WifiMatching {
 
   double computeSimilarityBetweenLists(
       List<CustomisedWifi> la, List<CustomisedWifi> lb, filterPercentage) {
-    List<String> filteredLstA = filterWifiByRssi(la, filterPercentage).map((e) => e.bssid).toList();
-    List<String> filteredLstB = filterWifiByRssi(lb, filterPercentage).map((e) => e.bssid).toList();
+    List<String> filteredLstA = 
+      filterWifiByRssi(la, filterPercentage).map((e) => e.bssid).toList();
+    List<String> filteredLstB = 
+      filterWifiByRssi(lb, filterPercentage).map((e) => e.bssid).toList();
 
     double similarity = 0;
     if (filteredLstA.length <= filteredLstB.length) {

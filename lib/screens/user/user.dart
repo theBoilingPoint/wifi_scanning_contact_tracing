@@ -1,3 +1,4 @@
+///This is the home/main page of the app
 import 'dart:async';
 
 import 'package:collection/collection.dart';
@@ -16,7 +17,7 @@ import 'package:wifi_scanning_flutter/screens/user/widgets/symptom.dart';
 import 'package:wifi_scanning_flutter/screens/user/widgets/webpageManager.dart';
 import 'package:wifi_scanning_flutter/screens/user/contact_widget.dart';
 import 'package:wifi_scanning_flutter/screens/user/healthy_widget.dart';
-import 'package:wifi_scanning_flutter/screens/user/widgets/infected_widget.dart';
+import 'package:wifi_scanning_flutter/screens/user/infected_widget.dart';
 import 'package:wifi_scanning_flutter/screens/user/symptoms_widget.dart';
 import 'package:wifi_scanning_flutter/services/auth.dart';
 import 'package:wifi_scanning_flutter/services/database/cloud_database.dart';
@@ -101,7 +102,9 @@ class UserHomePage extends State<User> {
                   onTap: () async {
                     //if the user has any symptoms, lead to the symptoms page
                     //else lead to the date checker page
-                    if(UserPreference.getHasFever() || UserPreference.getHasCough() || UserPreference.getHasSenseLoss()){
+                    if(UserPreference.getHasFever() || 
+                    UserPreference.getHasCough() || 
+                    UserPreference.getHasSenseLoss()){
                       Navigator.push(
                         context,
                         new MaterialPageRoute(
@@ -146,11 +149,13 @@ class UserHomePage extends State<User> {
                   ),
                   onTap: () async {
                     Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => WebpageManager(
-                                  pageName: "heatmap",
-                                )));
+                      context,
+                      new MaterialPageRoute(
+                        builder: (context) => WebpageManager(
+                          pageName: "heatmap",
+                        )
+                      )  
+                    );
                   },
                 ),
                 ListTile(
@@ -162,9 +167,11 @@ class UserHomePage extends State<User> {
                   ),
                   onTap: () async {
                     Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => CommonQuestionsPage()));
+                      context,
+                      new MaterialPageRoute(
+                        builder: (context) => CommonQuestionsPage()
+                      )
+                    );
                   },
                 ),
                 ListTile(
@@ -186,7 +193,8 @@ class UserHomePage extends State<User> {
                     Navigator.popUntil(context, ModalRoute.withName("/"));
                   },
                 ),
-              ]),
+              ]
+            ),
         ),
       ),
       body: FutureBuilder(
@@ -255,9 +263,9 @@ class UserHomePage extends State<User> {
 
   Future<void> handleCloudInfectionData() async {
     if (UserPreference.getInfectionState()) {
-      storeScansWithin7DaysInCloudDatabase();
+      storeScansWithin14DaysInCloudDatabase();
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Scans within 7 days have been uploaded to cloud."),
+        content: Text("Scans within 14 days have been uploaded to cloud."),
       ));
     } else {
       await CloudDatabase(uid: UserPreference.getUsername())
@@ -268,9 +276,9 @@ class UserHomePage extends State<User> {
     }
   }
 
-  Future<void> storeScansWithin7DaysInCloudDatabase() async {
+  Future<void> storeScansWithin14DaysInCloudDatabase() async {
     List<CustomisedWifi> wifiListInDatabase =
-        await wifiDao.getScansWithin7Days();
+        await wifiDao.getScansWithin14Days();
     Map<String, List<CustomisedWifi>> groupedwifiList = groupBy(
         wifiListInDatabase, (CustomisedWifi eachSignal) => eachSignal.dateTime);
     Map<String, List<Map>> newGroupedWifiList = Map();
@@ -287,6 +295,8 @@ class UserHomePage extends State<User> {
   }
 }
 
+///This class decides which widget should be rendered based on 
+///user states in User Preference
 class MainPageManager {
   BuildContext context;
   Function refresh;

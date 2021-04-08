@@ -50,8 +50,8 @@ class WifiDao {
     }).toList();
   }
 
-  Future<List<CustomisedWifi>> getScansWithin7Days() async {
-    String lowerBound = DateTime.now().add(Duration(days: -7)).toString();
+  Future<List<CustomisedWifi>> getScansWithin14Days() async {
+    String lowerBound = DateTime.now().add(Duration(days: -14)).toString();
     final finder = Finder(
         filter: Filter.greaterThanOrEquals("dateTime", lowerBound)
     );

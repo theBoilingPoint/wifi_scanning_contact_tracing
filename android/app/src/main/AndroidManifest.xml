@@ -12,7 +12,7 @@
     <application
         tools:replace="android:label"
         android:name=".Application"
-        android:label="wifi_example"
+        android:label="WiFi Contact Tracing"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

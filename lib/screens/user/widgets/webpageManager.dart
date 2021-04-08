@@ -1,3 +1,6 @@
+///This is the class which handles the webpage view.
+///The according webpage will be opened based on the parameter 
+///passed in from the constructor.
 import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
@@ -5,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:tuple/tuple.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:wifi_scanning_flutter/screens/user/widgets/no_internet.dart';
+import 'package:wifi_scanning_flutter/screens/no_internet.dart';
 
 class WebpageManager extends StatefulWidget {
   final String pageName;
@@ -89,7 +92,8 @@ class _WebpageManagerState extends State<WebpageManager> {
               );
             }
           },
-        ));
+        )
+      );
   }
 }
 
@@ -110,32 +114,37 @@ class NavigationControls extends StatelessWidget {
           children: <Widget>[
             IconButton(
                 icon: Icon(Icons.keyboard_arrow_left),
-                onPressed: !webViewReady
-                    ? null
-                    : () async {
-                        if (await controller.canGoBack()) {
-                          controller.goBack();
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("This is the first page."),
-                          ));
-                        }
-                      }),
+                onPressed: !webViewReady ? null : () async 
+                {
+                  if (await controller.canGoBack()) {
+                    controller.goBack();
+                  } 
+                  else {
+                    ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(
+                        content: Text("This is the first page."),
+                          )
+                    );
+                  }
+                }
+             ),
             IconButton(
-                icon: Icon(Icons.keyboard_arrow_right),
-                onPressed: !webViewReady
-                    ? null
-                    : () async {
-                        if (await controller.canGoForward()) {
-                          controller.goForward();
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("This is the last page."),
-                          ));
-                        }
-                      }),
+              icon: Icon(Icons.keyboard_arrow_right),
+              onPressed: !webViewReady ? null : () async 
+              {
+                if (await controller.canGoForward()) {
+                  controller.goForward();
+                } 
+                else {
+                  ScaffoldMessenger.of(context)
+                    .showSnackBar(
+                      const SnackBar(
+                        content: Text("This is the last page."),
+                      )
+                  );
+                }
+              }
+            ),
           ],
         );
       },

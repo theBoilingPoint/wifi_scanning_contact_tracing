@@ -40,8 +40,8 @@ class WiFiBackgroundActivityManager {
         if(totalMatchingTimes >= 3){
           //the isolation due only needs to be set once
           if(totalMatchingTimes == 3 && UserPreference.getIsolationDue() == ""){
-            await UserPreference.setIsolationDue(DateTime.now().add(Duration(days: 10)).toString());
-            //print("Isolation Due is set");
+            await UserPreference.setIsolationDue(DateTime.now()
+            .add(Duration(days: 10)).toString());
           }
           //When the user has 3 or more consecutive matching, the contacted state is set to true
           await UserPreference.setContactedState(true);
@@ -67,14 +67,17 @@ class WiFiBackgroundActivityManager {
   Future<void> findMatch() async {
     List<WifiResult> wifiScans = await databaseOperations.scanWifi();
     databaseOperations.storeScansInLocalDatabase(wifiScans);
-    bool hasMatch = await matcher.matchFingerprints(userId, matchInterval, filterPercentage, similarityThreshold);
+    bool hasMatch = await matcher
+        .matchFingerprints(userId, matchInterval, filterPercentage, similarityThreshold);
     if(hasMatch) {
       int totalMatchingTime = UserPreference.getMatchingTimes() + 1;
       await UserPreference.setMatchingTimes(totalMatchingTime);
       print("Total number of contact matching: " + totalMatchingTime.toString());
     }
-    //Only clear the total matching time (when there aren't consecutive matching) for a user who hasn't been contacted
-    //Otherwise, it might accidentally remove the isolation countdown for the user who has been contacted 
+    //Only clear the total matching time (when there aren't consecutive matching) 
+    //for a user who hasn't been contacted
+    //Otherwise, it might accidentally remove the isolation countdown for the 
+    //user who has been contacted 
     else if (!hasMatch && !UserPreference.getContactedState()){
       await UserPreference.setMatchingTimes(0);
       print("Total number of contact matching is set to 0");

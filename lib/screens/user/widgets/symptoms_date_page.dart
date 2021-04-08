@@ -70,7 +70,8 @@ class _SymptomsDatePickerState extends State<SymptomsDatePicker> {
                       fontSize: 20
                     ),
                   ),
-                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(kingsBlue)),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(kingsBlue)),
                   onPressed: (){
                     showSymptomsList();
                   }, 

@@ -42,6 +42,7 @@ class CloudDatabase {
   }
 
   Future<void> deleteAllScansOfCurrentUser() async {
-    await FirebaseFirestore.instance.collection("users").doc(UserPreference.getUsername()).delete();
+    await FirebaseFirestore.instance
+    .collection("users").doc(UserPreference.getUsername()).delete();
   }
 }

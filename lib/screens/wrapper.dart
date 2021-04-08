@@ -13,17 +13,20 @@ class Wrapper extends StatelessWidget {
     
     if (user == null) {
       return SignIn();
-    } else {
+    } 
+    else {
       print("Current User ID: " + user.uid);
       return FutureBuilder(
-          future: UserPreference.setUsername(user.uid),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return User();
-            } else {
+        future: UserPreference.setUsername(user.uid),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return User();
+          } 
+          else {
               return LoadingPage();
-            }
-          });
+          }
+        }
+      );
     }
   }
 }
