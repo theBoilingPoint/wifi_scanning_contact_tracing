@@ -1,6 +1,6 @@
 # KCL BSc Computer Science Dissertation: WiFi Scanning Contact Tracing App with Flutter
 
-This is the repository for my BSc Computer Science dissertation project. The project is a contact tracing app for Android and iOS devices, which uses WiFi scanning to detect other devices in the vicinity. The app is built using [Flutter](https://flutter.dev/?gclid=Cj0KCQiA0oagBhDHARIsAI-BbgcqHbBzxXz-YcTWjxDOFmrfRnaDiAUyC3uQAZcuQtn2DyKEDDz1dpgaArdLEALw_wcB&gclsrc=aw.ds), and the backend uses [Firebase](https://firebase.google.com/?gclid=Cj0KCQiA0oagBhDHARIsAI-BbgcSqfvEEMi9Yo2qHmoOAHUpFuxDeHCiygXoSRxywUQOd21EdycfX_0aAtFoEALw_wcB&gclsrc=aw.ds).
+This is the repository for my BSc Computer Science dissertation. The project is a contact tracing app for Android and iOS devices, which uses WiFi scanning to detect other devices in the vicinity. The app is built using [Flutter](https://flutter.dev/?gclid=Cj0KCQiA0oagBhDHARIsAI-BbgcqHbBzxXz-YcTWjxDOFmrfRnaDiAUyC3uQAZcuQtn2DyKEDDz1dpgaArdLEALw_wcB&gclsrc=aw.ds), and the backend uses [Firebase](https://firebase.google.com/?gclid=Cj0KCQiA0oagBhDHARIsAI-BbgcSqfvEEMi9Yo2qHmoOAHUpFuxDeHCiygXoSRxywUQOd21EdycfX_0aAtFoEALw_wcB&gclsrc=aw.ds).
 
 The final grade for the project is 75/100 (1:1).
 
